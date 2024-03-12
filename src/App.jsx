@@ -1,11 +1,19 @@
 import React from "react"
+import { createBrowserRouter, RouterProvider } from "react-router-dom"
 
-function App() {
+import Home from "./routes/Home/Home"
+
+const router = createBrowserRouter([
+  {
+    path: "/",
+    element: <Home />,
+  },
+])
+
+const App = () => {
   return (
     <div className="app">
-      <header className="app__header">
-        <h1 className="text-3xl font-bold underline">Tailwing working!</h1>
-      </header>
+      <RouterProvider router={router} />
     </div>
   )
 }
