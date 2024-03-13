@@ -1,0 +1,127 @@
+@use "../../scss/index" as *;
+
+.home {
+  // @extend %container;
+
+  &__background {
+    width: 100vw;
+    height: 100vh;
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    // z-index: 0;
+  }
+
+  &__background-shape {
+    width: 90%;
+    height: 90%;
+    background: linear-gradient(to right, #c2095a, #f71735);
+    clip-path: polygon(50% 0%, 36% 32%, 100% 75%, 77% 45%, 7% 91%, 50% 49%);
+  }
+
+  &__foreground {
+    width: 100vw;
+    height: 100vh;
+    background-color: transparentize(lightgray, 0.6);
+    backdrop-filter: blur(70px);
+    // z-index: 100;
+    display: flex;
+    flex-direction: column;
+    // justify-content: center;
+    // align-items: center;
+  }
+
+  &__navbar {
+    // background-color: blue;
+    // height: 100px;
+    // width: 100px;
+    padding: $space-2 $space-3;
+    // border-bottom: 1px solid transparentize(gray, 0.8);
+    // background-color: transparentize(lightgray, 0.6);
+    // backdrop-filter: blur(1px);
+    box-shadow: 0px 1px 5px lightgray;
+    display: flex;
+    justify-content: space-between;
+  }
+
+  &__app-logo {
+    color: #c2095a;
+    // background-color: red;
+  }
+
+  &__search-box-container {
+    display: flex;
+    flex-direction: row;
+  }
+
+  &__search-box {
+    appearance: none;
+    border: none;
+    background: none;
+    border-radius: 50px 0 0 50px;
+    padding: 0 $space-2;
+    border: 1px solid #b8b8b8;
+    // box-shadow: 0px 0px 1px gray;
+  }
+
+  &__search-box-button {
+    appearance: none;
+    border: none;
+    background: #ddd;
+    border: 1px solid #b8b8b8;
+    border-left: none;
+    border-radius: 0 50px 50px 0;
+    padding: 0 $space-1;
+    color: #2e3138;
+    cursor: pointer;
+
+    &:hover {
+      color: #c2095a;
+    }
+  }
+
+  &__log-in-button {
+    appearance: none;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+  }
+
+  &__log-in-button-text {
+    @extend %body-sans;
+
+    font-weight: $font-weight-bold;
+    color: #2e3138;
+    transition: 0.25s ease color;
+
+    &:hover {
+      color: #c2095a;
+    }
+  }
+
+  &__log-in-button-icon {
+    margin-left: $space-1;
+  }
+
+  &__content {
+    max-width: 600px;
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    flex: 1;
+    text-align: center;
+  }
+
+  &__heading {
+    @extend %h1-sans;
+  }
+
+  &__paragraph {
+    margin-top: $space-2;
+    @extend %body-sans;
+  }
+}
