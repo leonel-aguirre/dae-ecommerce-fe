@@ -11,14 +11,27 @@ import {
 const Home = () => {
   return (
     <div className="home">
-      <div className="home__background">
+      {/* TODO: Decide if this should be kept. */}
+      {/* <div className="home__background">
         <div className="home__background-shape"></div>
-      </div>
+      </div> */}
       <div className="home__foreground">
         <section className="home__navbar">
-          <FontAwesomeIcon icon={faBolt} size="2x" className="home__app-logo" />
+          <span className="home__app-logo">
+            <FontAwesomeIcon
+              icon={faBolt}
+              size="2x"
+              className="home__app-logo-icon"
+            />
+            Spark Market
+          </span>
           <div className="home__search-box-container">
-            <input className="home__search-box" type="text" />
+            <input
+              className="home__search-box"
+              type="text"
+              size={25}
+              placeholder="Search for products ..."
+            />
             <button className="home__search-box-button">
               <FontAwesomeIcon icon={faMagnifyingGlass} size="lg" />
             </button>

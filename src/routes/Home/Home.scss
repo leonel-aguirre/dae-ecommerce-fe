@@ -1,87 +1,126 @@
 @use "../../scss/index" as *;
 
 .home {
-  // @extend %container;
+  $app-logo-icon-color: $color-amaranth-red;
+  $app-logo-text-color: $color-gunmetal-black;
+  $log-in-button-text-color: $color-gunmetal-black;
+  $log-in-button-text-hover-color: $color-amaranth-red;
+  $search-box-border-color: $color-light-gray;
+  $search-box-icon-color: $color-gunmetal-black;
+  $search-box-icon-hover-color: $color-amaranth-red;
+  $search-box-button-background-color: lighten-2($color-light-gray);
 
-  &__background {
-    width: 100vw;
-    height: 100vh;
-    position: absolute;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    // z-index: 0;
-  }
+  // TODO: Decide if this should be kept.
+  // &__background {
+  //   width: 100vw;
+  //   height: 100vh;
+  //   position: absolute;
+  //   display: flex;
+  //   justify-content: center;
+  //   align-items: center;
+  // }
 
-  &__background-shape {
-    width: 90%;
-    height: 90%;
-    background: linear-gradient(to right, #c2095a, #f71735);
-    clip-path: polygon(50% 0%, 36% 32%, 100% 75%, 77% 45%, 7% 91%, 50% 49%);
-  }
+  // TODO: Decide if this should be kept.
+  // &__background-shape {
+  //   width: 100%;
+  //   height: 100%;
+  //   background: linear-gradient(to right, #c2095a, #f71735);
+  //   clip-path: polygon(50% 0%, 36% 32%, 100% 75%, 77% 45%, 7% 91%, 50% 49%);
+  // }
 
   &__foreground {
     width: 100vw;
     height: 100vh;
-    background-color: transparentize(lightgray, 0.6);
-    backdrop-filter: blur(70px);
-    // z-index: 100;
+    // TODO: Decide if this should be kept.
+    // background-color: transparentize(lightgray, 0.6);
+    // backdrop-filter: blur(70px);
     display: flex;
     flex-direction: column;
-    // justify-content: center;
-    // align-items: center;
   }
 
   &__navbar {
-    // background-color: blue;
-    // height: 100px;
-    // width: 100px;
     padding: $space-2 $space-3;
-    // border-bottom: 1px solid transparentize(gray, 0.8);
-    // background-color: transparentize(lightgray, 0.6);
-    // backdrop-filter: blur(1px);
-    box-shadow: 0px 1px 5px lightgray;
+    box-shadow: 0px 1px 5px;
     display: flex;
     justify-content: space-between;
+    align-items: center;
   }
 
   &__app-logo {
-    color: #c2095a;
-    // background-color: red;
+    @extend %body-sans;
+
+    font-weight: $font-weight-bold;
+    display: flex;
+    align-items: center;
+    color: $app-logo-text-color;
+    cursor: pointer;
+
+    background: $app-logo-text-color;
+
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+
+    &:hover {
+      background: -webkit-linear-gradient(
+        left,
+        $color-amaranth-red,
+        lighten-1($color-amaranth-red)
+      );
+
+      background-clip: text;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+  }
+
+  &__app-logo-icon {
+    color: $app-logo-icon-color;
+    margin-right: $space-1;
   }
 
   &__search-box-container {
-    display: flex;
-    flex-direction: row;
+    display: none;
+
+    @include breakpoint-min(bp(small)) {
+      display: flex;
+      flex-direction: row;
+    }
   }
 
   &__search-box {
+    @extend %body-sans;
+
     appearance: none;
     border: none;
     background: none;
-    border-radius: 50px 0 0 50px;
-    padding: 0 $space-2;
-    border: 1px solid #b8b8b8;
-    // box-shadow: 0px 0px 1px gray;
+    border-radius: 10px 0 0 10px;
+    padding: $space-2 $space-2;
+    border: 1px solid $search-box-border-color;
+    height: $space-4;
+    font-weight: $font-weight-medium;
   }
 
   &__search-box-button {
     appearance: none;
     border: none;
-    background: #ddd;
-    border: 1px solid #b8b8b8;
+    background: $search-box-button-background-color;
+    border: 1px solid $search-box-border-color;
     border-left: none;
-    border-radius: 0 50px 50px 0;
+    border-radius: 0 10px 10px 0;
     padding: 0 $space-1;
-    color: #2e3138;
+    color: $search-box-icon-color;
+    transition: 0.25s ease color;
     cursor: pointer;
 
-    &:hover {
-      color: #c2095a;
+    &:hover,
+    &:active {
+      color: $search-box-icon-hover-color;
     }
   }
 
   &__log-in-button {
+    background: none;
     appearance: none;
     border: none;
     cursor: pointer;
@@ -93,11 +132,11 @@
     @extend %body-sans;
 
     font-weight: $font-weight-bold;
-    color: #2e3138;
+    color: $log-in-button-text-color;
     transition: 0.25s ease color;
 
     &:hover {
-      color: #c2095a;
+      color: $log-in-button-text-hover-color;
     }
   }
 
@@ -106,7 +145,7 @@
   }
 
   &__content {
-    max-width: 600px;
+    max-width: 60%;
     margin: auto;
     display: flex;
     flex-direction: column;
@@ -118,10 +157,21 @@
 
   &__heading {
     @extend %h1-sans;
+
+    background: -webkit-linear-gradient(
+      left,
+      $color-amaranth-red,
+      lighten-2($color-amaranth-red)
+    );
+
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
   }
 
   &__paragraph {
-    margin-top: $space-2;
     @extend %body-sans;
+
+    margin-top: $space-2;
   }
 }

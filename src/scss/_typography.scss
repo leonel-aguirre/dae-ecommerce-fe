@@ -59,10 +59,10 @@ $font-weight-black: 900;
 %body-sans {
   @extend %font-sans;
 
-  font-size: 18px;
+  font-size: 16px;
 
   @include breakpoint-min(bp(small)) {
-    font-size: 20px;
+    font-size: 18px;
   }
 }
 
@@ -76,7 +76,7 @@ $font-weight-black: 900;
   }
 }
 
-%large-sans {
+%body-large-sans {
   @extend %font-sans;
 
   font-size: 56px;
