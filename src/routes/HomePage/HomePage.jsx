@@ -4,10 +4,11 @@ import React from "react"
 import { useNavigate } from "react-router-dom"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import {
-  faBolt,
   faMagnifyingGlass,
   faRightToBracket,
 } from "@fortawesome/free-solid-svg-icons"
+
+import AppLogo from "../../components/AppLogo/AppLogo"
 
 const HomePage = () => {
   const navigate = useNavigate()
@@ -24,14 +25,7 @@ const HomePage = () => {
       </div> */}
       <div className="home-page__foreground">
         <section className="home-page__navbar">
-          <span className="home-page__app-logo">
-            <FontAwesomeIcon
-              icon={faBolt}
-              size="2x"
-              className="home-page__app-logo-icon"
-            />
-            Spark Market
-          </span>
+          <AppLogo />
           <div className="home-page__search-box-container">
             <input
               className="home-page__search-box"
