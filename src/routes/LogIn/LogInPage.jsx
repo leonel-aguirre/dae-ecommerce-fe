@@ -1,24 +1,41 @@
 import "./LogInPage.scss"
 
 import React from "react"
+import { useForm } from "react-hook-form"
 
 import TextInput from "../../components/TextInput/TextInput"
 import Button from "../../components/Button/Button"
 import AppLogo from "../../components/AppLogo/AppLogo"
 
 const LogInPage = () => {
+  const { register, handleSubmit } = useForm()
+
+  const onSubmit = (data) => {
+    console.log({ data })
+  }
+
   return (
     <div className="log-in-page">
       <header className="log-in-page__header">
         <AppLogo isLarge={true} />
       </header>
-      <div className="log-in-page__form-container">
+      <form
+        className="log-in-page__form-container"
+        onSubmit={handleSubmit(onSubmit)}
+      >
         <h3 className="log-in-page__main-header">Welcome Back!</h3>
         <p className="log-in-page__log-in-text">Log in to your account</p>
         <div className="log-in-page__form-controls-wrapper">
-          <TextInput placeholder={"Email"} />
-          <TextInput placeholder={"Password"} isPasswordType={true} />
-          <Button>Log In</Button>
+          <TextInput
+            placeholder={"Email"}
+            {...register("email", { required: true })}
+          />
+          <TextInput
+            placeholder={"Password"}
+            isPasswordType={true}
+            {...register("password", { required: true })}
+          />
+          <Button type="submit">Log In</Button>
         </div>
         <p className="log-in-page__forgot-password-text">
           Forgot password?{" "}
@@ -27,7 +44,7 @@ const LogInPage = () => {
           </a>
           .
         </p>
-      </div>
+      </form>
     </div>
   )
 }
