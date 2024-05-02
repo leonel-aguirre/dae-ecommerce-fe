@@ -3,16 +3,17 @@ import "./Button.scss"
 import React from "react"
 import PropTypes from "prop-types"
 
-const Button = ({ children, ...rest }) => {
+const Button = ({ text, isDisabled = false, ...rest }) => {
   return (
-    <button className="button" {...rest}>
-      {children}
+    <button className="button" disabled={isDisabled} {...rest}>
+      {text}
     </button>
   )
 }
 
 Button.propTypes = {
-  children: PropTypes.any.isRequired,
+  text: PropTypes.string.isRequired,
+  isDisabled: PropTypes.bool,
 }
 
 export default Button

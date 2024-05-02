@@ -14,7 +14,11 @@ const { logIn } = authActions
 
 const LogInPage = () => {
   const dispatch = useDispatch()
-  const { register, handleSubmit } = useForm()
+  const {
+    register,
+    handleSubmit,
+    formState: { isValid },
+  } = useForm()
 
   const onSubmit = (data) => {
     const { email, password } = data
@@ -43,7 +47,7 @@ const LogInPage = () => {
             isPasswordType={true}
             {...register("password", { required: true })}
           />
-          <Button type="submit">Log In</Button>
+          <Button type="submit" text={"Log In"} isDisabled={!isValid} />
         </div>
         <p className="log-in-page__forgot-password-text">
           Forgot password?{" "}
