@@ -1,6 +1,6 @@
 import "./LogInPage.scss"
 
-import React from "react"
+import React, { useState } from "react"
 import { useForm } from "react-hook-form"
 import { useDispatch } from "react-redux"
 
@@ -14,16 +14,21 @@ const { logIn } = authActions
 
 const LogInPage = () => {
   const dispatch = useDispatch()
+  const [isSubmitting, setIsSubmitting] = useState(false)
   const {
     register,
     handleSubmit,
     formState: { isValid },
   } = useForm()
 
-  const onSubmit = (data) => {
+  const onSubmit = async (data) => {
+    setIsSubmitting(true)
+
     const { email, password } = data
 
     dispatch(logIn(email, password))
+
+    setIsSubmitting(false)
   }
 
   return (
@@ -47,7 +52,12 @@ const LogInPage = () => {
             isPasswordType={true}
             {...register("password", { required: true })}
           />
-          <Button type="submit" text={"Log In"} isDisabled={!isValid} />
+          <Button
+            type="submit"
+            text={"Log In"}
+            isDisabled={!isValid}
+            isLoading={isSubmitting}
+          />
         </div>
         <p className="log-in-page__forgot-password-text">
           Forgot password?{" "}
