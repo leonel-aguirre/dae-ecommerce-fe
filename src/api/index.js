@@ -8,7 +8,7 @@ const sendRequest = async (method, endPoint, body, headers) => {
 
   const config = {
     method,
-    endPoint,
+    url: endPoint,
     headers: { ...baseHeaders, ...headers },
   }
 
@@ -16,7 +16,7 @@ const sendRequest = async (method, endPoint, body, headers) => {
     config.data = body
   }
 
-  return axiosInstance(config)
+  return axiosInstance.request(config)
 }
 
 export const get = (endPoint, headers = {}) => {

@@ -2,16 +2,24 @@ import "./LogInPage.scss"
 
 import React from "react"
 import { useForm } from "react-hook-form"
+import { useDispatch } from "react-redux"
 
 import TextInput from "../../components/TextInput/TextInput"
 import Button from "../../components/Button/Button"
 import AppLogo from "../../components/AppLogo/AppLogo"
 
+import { authActions } from "../../state"
+
+const { logIn } = authActions
+
 const LogInPage = () => {
+  const dispatch = useDispatch()
   const { register, handleSubmit } = useForm()
 
   const onSubmit = (data) => {
-    console.log({ data })
+    const { email, password } = data
+
+    dispatch(logIn(email, password))
   }
 
   return (
