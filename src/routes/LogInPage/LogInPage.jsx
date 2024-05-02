@@ -61,7 +61,7 @@ const LogInPage = () => {
         </div>
         <p className="log-in-page__forgot-password-text">
           Forgot password?{" "}
-          <a className="log-in-page__create-account-anchor" href={"/"}>
+          <a className="log-in-page__create-account-anchor" href={"/register"}>
             Create an account
           </a>
           .
