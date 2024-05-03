@@ -1,10 +1,19 @@
 import { post } from "../../api"
+import { SET_IS_USER_AUTHENTICATED } from "../reducers/authReducer"
 
-const logIn = (email, password) => async () => {
+const setIsAuthenticated = (value) => async (dispatch) => {
+  await dispatch({
+    type: SET_IS_USER_AUTHENTICATED,
+    payload: { value },
+  })
+}
+
+const logIn = (email, password) => async (dispatch) => {
   try {
     const { data } = await post("/accounts/sign_in", { email, password })
 
     if (data?.email) {
+      await dispatch(setIsAuthenticated(true))
       return { success: true }
     }
   } catch (error) {
@@ -14,7 +23,7 @@ const logIn = (email, password) => async () => {
   }
 }
 
-const registerAccount = (fullName, email, password) => async () => {
+const registerAccount = (fullName, email, password) => async (dispatch) => {
   try {
     await post("/accounts/create", {
       account: {
@@ -23,6 +32,8 @@ const registerAccount = (fullName, email, password) => async () => {
         password,
       },
     })
+
+    await dispatch(setIsAuthenticated(true))
 
     return { success: true }
   } catch (error) {
