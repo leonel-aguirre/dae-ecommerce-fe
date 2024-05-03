@@ -1,12 +1,13 @@
 import { get } from "../../api"
 import { snakeToCamelCaseObjectKeys } from "../../utils"
-import { SET_FULL_ACCOUNT_DATA } from "../reducers/accountReducer"
+import {
+  RESET_FULL_ACCOUNT_DATA,
+  SET_FULL_ACCOUNT_DATA,
+} from "../reducers/accountReducer"
 
 const fetchAccountData = () => async (dispatch) => {
   try {
     const { data } = await get("/accounts/current")
-
-    console.log({ data: snakeToCamelCaseObjectKeys(data) })
 
     dispatch({
       type: SET_FULL_ACCOUNT_DATA,
@@ -26,6 +27,24 @@ const fetchAccountData = () => async (dispatch) => {
   }
 }
 
+const resetFullAccountData = () => async (dispatch) => {
+  try {
+    dispatch({
+      type: RESET_FULL_ACCOUNT_DATA,
+    })
+
+    return { success: true }
+  } catch (error) {
+    console.error(error)
+
+    return {
+      success: false,
+      message: "Error while trying to reset full account data.",
+    }
+  }
+}
+
 export const actions = {
   fetchAccountData,
+  resetFullAccountData,
 }

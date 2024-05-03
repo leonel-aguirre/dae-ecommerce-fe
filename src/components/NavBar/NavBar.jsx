@@ -2,7 +2,7 @@ import "./NavBar.scss"
 
 import React, { useEffect } from "react"
 import { useSelector, useDispatch } from "react-redux"
-import { Link, useNavigate } from "react-router-dom"
+import { useNavigate } from "react-router-dom"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import {
   faCog,
@@ -12,11 +12,17 @@ import {
 } from "@fortawesome/free-solid-svg-icons"
 
 import AppLogo from "../AppLogo/AppLogo"
-import { authSelectors, accountActions, accountSelectors } from "../../state"
+import {
+  authSelectors,
+  accountActions,
+  accountSelectors,
+  authActions,
+} from "../../state"
 
+const { logOut } = authActions
+const { fetchAccountData } = accountActions
 const { selectIsUserAuthenticated } = authSelectors
 const { selectUserFullName } = accountSelectors
-const { fetchAccountData } = accountActions
 
 const NavBar = () => {
   const dispatch = useDispatch()
@@ -32,6 +38,10 @@ const NavBar = () => {
 
   const handleLogInButton = () => {
     navigate("/log-in")
+  }
+
+  const handleLogOutButton = () => {
+    dispatch(logOut())
   }
 
   const renderRightEndContent = () => {
@@ -51,7 +61,10 @@ const NavBar = () => {
                 className="nav-bar__user-action-button-icon"
               />
             </button>
-            <button className="nav-bar__user-action-button">
+            <button
+              className="nav-bar__user-action-button"
+              onClick={handleLogOutButton}
+            >
               <FontAwesomeIcon
                 icon={faUserLargeSlash}
                 className="nav-bar__user-action-button-icon"
