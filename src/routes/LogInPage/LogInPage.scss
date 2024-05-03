@@ -1,0 +1,56 @@
+@use "../../scss/index" as *;
+
+.log-in-page {
+  $form-container-border-color: $color-light-gray;
+  $main-header-text-color: $color-amaranth-red;
+  $default-text-color: $color-gunmetal-black;
+  $create-account-anchor-text-color: $color-amaranth-red;
+
+  &__header {
+    display: flex;
+    justify-content: center;
+    margin-top: $space-4;
+  }
+
+  &__form-container {
+    max-width: 600px;
+    margin: 0 auto;
+    margin-top: $space-6;
+    padding: $space-5;
+    border: 2px solid $form-container-border-color;
+    border-radius: 10px;
+  }
+
+  &__main-header {
+    @extend %h3-sans;
+
+    @include gradient-text($main-header-text-color);
+  }
+
+  &__log-in-text {
+    @extend %body-sans;
+
+    margin-top: $space-2;
+    color: $default-text-color;
+    font-weight: $font-weight-bold;
+  }
+
+  &__form-controls-wrapper {
+    margin-top: $space-3;
+    display: flex;
+    flex-direction: column;
+    row-gap: $space-1;
+  }
+
+  &__forgot-password-text {
+    @extend %body-small-sans;
+
+    color: $default-text-color;
+    font-weight: $font-weight-semibold;
+    margin-top: $space-3;
+  }
+
+  &__create-account-anchor {
+    color: $create-account-anchor-text-color;
+  }
+}

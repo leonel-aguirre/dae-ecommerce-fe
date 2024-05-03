@@ -1,0 +1,26 @@
+@use "../../scss/index.scss" as *;
+
+.text-input {
+  $default-text-color: $color-gunmetal-black;
+  $border-color: lighten-3($color-gunmetal-black);
+  $border-hover-color: lighten-2($color-gunmetal-black);
+  $border-focus-color: lighten-1($color-gunmetal-black);
+
+  @extend %body-sans;
+
+  appearance: none;
+  border-radius: 10px;
+  padding: $space-1 $space-2;
+  border: 2px solid $border-color;
+  color: $default-text-color;
+  font-weight: $font-weight-medium;
+  outline: none;
+
+  &:hover {
+    border: 2px solid $border-hover-color;
+  }
+
+  &:focus {
+    border: 2px solid $border-focus-color;
+  }
+}

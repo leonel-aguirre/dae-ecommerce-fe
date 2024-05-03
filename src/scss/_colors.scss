@@ -2,9 +2,18 @@ $color-amaranth-red: #e60b51;
 
 $color-gunmetal-black: #2e3138;
 $color-light-gray: #d3d3d3;
+$color-pure-white: #ffffff;
 
-@function monochrome-gradient($color: $color-black, $degrees: 90deg) {
+@function monochrome-gradient($color: $color-amaranth-red, $degrees: 90deg) {
   @return linear-gradient($degrees, $color 0%, lighten-2($color) 100%);
+}
+
+@mixin gradient-text($color: $color-amaranth-red) {
+  background: -webkit-linear-gradient(left, $color, lighten-2($color));
+
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
 
 $color-adjust-1: 20%;
