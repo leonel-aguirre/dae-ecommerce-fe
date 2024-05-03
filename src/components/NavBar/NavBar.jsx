@@ -1,10 +1,14 @@
+import "./NavBar.scss"
+
 import React, { useEffect } from "react"
 import { useSelector, useDispatch } from "react-redux"
-import { useNavigate } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import {
+  faCog,
   faMagnifyingGlass,
   faRightToBracket,
+  faUserLargeSlash,
 } from "@fortawesome/free-solid-svg-icons"
 
 import AppLogo from "../AppLogo/AppLogo"
@@ -20,8 +24,6 @@ const NavBar = () => {
   const userFullName = useSelector(selectUserFullName)
   const navigate = useNavigate()
 
-  console.log({ userFullName })
-
   useEffect(() => {
     if (isUserAuthenticated) {
       dispatch(fetchAccountData())
@@ -32,29 +34,63 @@ const NavBar = () => {
     navigate("/log-in")
   }
 
+  const renderRightEndContent = () => {
+    if (isUserAuthenticated) {
+      const [userFirstName] = userFullName.split(" ")
+
+      return (
+        <div className="nav-bar__user-content">
+          <p className="nav-bar__user-name-greeting">
+            Hi <span className="nav-bar__user-first-name">{userFirstName}</span>
+            !
+          </p>
+          <div className="nav-bar__action-buttons-wrapper">
+            <button className="nav-bar__user-action-button">
+              <FontAwesomeIcon
+                icon={faCog}
+                className="nav-bar__user-action-button-icon"
+              />
+            </button>
+            <button className="nav-bar__user-action-button">
+              <FontAwesomeIcon
+                icon={faUserLargeSlash}
+                className="nav-bar__user-action-button-icon"
+              />
+            </button>
+          </div>
+        </div>
+      )
+    } else {
+      return (
+        <button className="nav-bar__log-in-button" onClick={handleLogInButton}>
+          <span className="nav-bar__log-in-button-text">
+            Log In
+            <FontAwesomeIcon
+              className="nav-bar__log-in-button-icon"
+              icon={faRightToBracket}
+            />
+          </span>
+        </button>
+      )
+    }
+  }
+
   return (
-    <nav className="home-page__navbar">
+    <nav className="nav-bar">
       <AppLogo />
-      <div className="home-page__search-box-container">
+      <div className="nav-bar__search-box-container">
         <input
-          className="home-page__search-box"
+          className="nav-bar__search-box"
           type="text"
           size={25}
           placeholder="Search for products ..."
         />
-        <button className="home-page__search-box-button">
+        <button className="nav-bar__search-box-button">
           <FontAwesomeIcon icon={faMagnifyingGlass} size="lg" />
         </button>
       </div>
-      <button className="home-page__log-in-button" onClick={handleLogInButton}>
-        <span className="home-page__log-in-button-text">
-          Log In
-          <FontAwesomeIcon
-            className="home-page__log-in-button-icon"
-            icon={faRightToBracket}
-          />
-        </span>
-      </button>
+
+      {renderRightEndContent()}
     </nav>
   )
 }
