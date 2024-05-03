@@ -3,21 +3,26 @@ import "./LogInPage.scss"
 import React, { useState } from "react"
 import { useForm } from "react-hook-form"
 import { useDispatch } from "react-redux"
+import { useNavigate } from "react-router-dom"
 
 import TextInput from "../../components/TextInput/TextInput"
 import Button from "../../components/Button/Button"
 import AppLogo from "../../components/AppLogo/AppLogo"
 
 import { authActions } from "../../state"
+import { URL_HOME_PAGE } from "../../constants"
 
 const { logIn } = authActions
 
 const LogInPage = () => {
+  const navigate = useNavigate()
   const dispatch = useDispatch()
   const [isSubmitting, setIsSubmitting] = useState(false)
   const {
     register,
     handleSubmit,
+    reset,
+    setFocus,
     formState: { isValid },
   } = useForm()
 
@@ -26,7 +31,15 @@ const LogInPage = () => {
 
     const { email, password } = data
 
-    dispatch(logIn(email, password))
+    const { success, message } = await dispatch(logIn(email, password))
+
+    if (success) {
+      navigate(URL_HOME_PAGE)
+    } else {
+      alert(message)
+      reset()
+      setFocus("email")
+    }
 
     setIsSubmitting(false)
   }

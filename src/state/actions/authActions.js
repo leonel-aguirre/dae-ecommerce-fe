@@ -2,17 +2,21 @@ import { post } from "../../api"
 
 const logIn = (email, password) => async () => {
   try {
-    const response = await post("/accounts/sign_in", { email, password })
+    const { data } = await post("/accounts/sign_in", { email, password })
 
-    // TODO: Store token.
+    if (data?.email) {
+      return { success: true }
+    }
   } catch (error) {
     console.error(error)
+
+    return { success: false, message: error?.response?.data?.errors }
   }
 }
 
 const registerAccount = (fullName, email, password) => async () => {
   try {
-    const response = await post("/accounts/create", {
+    await post("/accounts/create", {
       account: {
         full_name: fullName,
         email,
@@ -20,11 +24,14 @@ const registerAccount = (fullName, email, password) => async () => {
       },
     })
 
-    // TODO: Store token.
+    return { success: true }
   } catch (error) {
     console.error(error)
 
-    alert(error?.response?.data?.errors?.email?.[0])
+    return {
+      success: false,
+      message: error?.response?.data?.errors?.email?.[0],
+    }
   }
 }
 

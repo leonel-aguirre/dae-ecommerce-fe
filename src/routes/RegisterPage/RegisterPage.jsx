@@ -3,21 +3,25 @@ import "./RegisterPage.scss"
 import React, { useState } from "react"
 import { useForm } from "react-hook-form"
 import { useDispatch } from "react-redux"
+import { useNavigate } from "react-router-dom"
 
 import TextInput from "../../components/TextInput/TextInput"
 import Button from "../../components/Button/Button"
 import AppLogo from "../../components/AppLogo/AppLogo"
 
 import { authActions } from "../../state"
+import { URL_HOME_PAGE } from "../../constants"
 
 const { registerAccount } = authActions
 
 const RegisterPage = () => {
+  const navigate = useNavigate()
   const dispatch = useDispatch()
   const [isSubmitting, setIsSubmitting] = useState(false)
   const {
     register,
     handleSubmit,
+    reset,
     resetField,
     setFocus,
     formState: { isValid },
@@ -31,7 +35,16 @@ const RegisterPage = () => {
     const passwordsMatch = password === confirmPassword
 
     if (passwordsMatch) {
-      dispatch(registerAccount(fullName, email, password))
+      const { success, message } = await dispatch(
+        registerAccount(fullName, email, password),
+      )
+
+      if (success) {
+        navigate(URL_HOME_PAGE)
+      } else {
+        alert(message)
+        reset()
+      }
     } else {
       alert("Passwords do not match.")
 
