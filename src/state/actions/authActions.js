@@ -4,7 +4,7 @@ import { actions as accountActions } from "./accountActions"
 
 const { resetFullAccountData } = accountActions
 
-const setIsAuthenticated = (value) => async (dispatch) => {
+const setIsUserAuthenticated = (value) => async (dispatch) => {
   await dispatch({
     type: SET_IS_USER_AUTHENTICATED,
     payload: { value },
@@ -16,7 +16,7 @@ const logIn = (email, password) => async (dispatch) => {
     const { data } = await post("/accounts/sign_in", { email, password })
 
     if (data?.email) {
-      await dispatch(setIsAuthenticated(true))
+      await dispatch(setIsUserAuthenticated(true))
       return { success: true }
     }
   } catch (error) {
@@ -30,7 +30,7 @@ const logOut = () => async (dispatch) => {
   try {
     await get("/accounts/sign_out")
 
-    await dispatch(setIsAuthenticated(false))
+    await dispatch(setIsUserAuthenticated(false))
     await dispatch(resetFullAccountData())
 
     return { success: true }
@@ -51,7 +51,7 @@ const registerAccount = (fullName, email, password) => async (dispatch) => {
       },
     })
 
-    await dispatch(setIsAuthenticated(true))
+    await dispatch(setIsUserAuthenticated(true))
 
     return { success: true }
   } catch (error) {
@@ -65,7 +65,7 @@ const registerAccount = (fullName, email, password) => async (dispatch) => {
 }
 
 export const actions = {
-  setIsAuthenticated,
+  setIsUserAuthenticated,
   logIn,
   logOut,
   registerAccount,
