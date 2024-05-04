@@ -1,0 +1,35 @@
+@use "../../scss/index" as *;
+
+.home-page {
+  $heading-text-color: $color-amaranth-red;
+
+  &__foreground {
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+  }
+
+  &__content {
+    max-width: 60%;
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    flex: 1;
+    text-align: center;
+  }
+
+  &__heading {
+    @extend %h1-sans;
+
+    @include gradient-text($heading-text-color);
+  }
+
+  &__paragraph {
+    @extend %body-sans;
+
+    margin-top: $space-2;
+  }
+}

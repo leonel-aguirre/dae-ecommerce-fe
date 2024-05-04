@@ -2,17 +2,10 @@ import "./HomePage.scss"
 
 import React from "react"
 
-import NavBar from "../../components/NavBar/NavBar"
-
 const HomePage = () => {
   return (
     <div className="home-page">
-      {/* TODO: Decide if this should be kept. */}
-      {/* <div className="home-page__background">
-        <div className="home-page__background-shape"></div>
-      </div> */}
       <div className="home-page__foreground">
-        <NavBar />
         <section className="home-page__content">
           <h1 className="home-page__heading">Lorem ipsum dolor sit amet.</h1>
           <p className="home-page__paragraph">
