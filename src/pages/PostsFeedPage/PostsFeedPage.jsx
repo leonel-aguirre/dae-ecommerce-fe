@@ -16,7 +16,7 @@ const PostsFeedPage = () => {
 
   useEffect(() => {
     dispatch(fetchProductCategories())
-  })
+  }, [])
 
   const handleCategoryButtonClick = (url) => {
     navigate(url)
@@ -26,7 +26,10 @@ const PostsFeedPage = () => {
     <div className="posts-feed-page">
       <section className="posts-feed-page__items-by-category-section">
         <h2 className="posts-feed-page__section-heading">
-          Discover Your Perfect Item
+          Discover Your{" "}
+          <span className="posts-feed-page__section-heading-highlight">
+            Perfect Item
+          </span>
         </h2>
         <p className="posts-feed-page__section-paragraph">
           Find the item you&apos;re looking for from the following categories:
@@ -35,7 +38,7 @@ const PostsFeedPage = () => {
           {productCategories.map((productCategory, index) => {
             const { id, title } = productCategory
 
-            const colorType = String.fromCharCode(97 + (index % 4))
+            const colorType = String.fromCharCode(97 + (index % 3))
 
             return (
               <li key={id} className="posts-feed-page__categories-list-item">

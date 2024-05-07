@@ -8,7 +8,11 @@
   &__section-heading {
     @extend %h2-sans;
 
-    @include gradient-text();
+    color: $color-space-gray;
+  }
+
+  &__section-heading-highlight {
+    color: $color-cerulean-blue;
   }
 
   &__section-paragraph {
@@ -16,6 +20,7 @@
 
     font-weight: $font-weight-bold;
     margin-top: $space-4;
+    color: $color-space-gray;
   }
 
   &__categories-list {
@@ -43,40 +48,55 @@
     border: none;
     background: none;
     cursor: pointer;
-    background: monochrome-gradient(lighten-1($color-amaranth-red));
     color: $color-pure-white;
     font-weight: $font-weight-medium;
     padding: $space-1 $space-2;
     border-radius: 10px;
     text-wrap: nowrap;
 
+    &.is-color-a {
+      background: lighten-1($color-cerulean-blue);
+    }
+
     &.is-color-b {
-      background: monochrome-gradient(lighten-1($color-blue-violet));
+      background: lighten-1($color-space-gray);
     }
 
     &.is-color-c {
-      background: monochrome-gradient(lighten-1($color-azure-blue));
-    }
-
-    &.is-color-d {
-      background: monochrome-gradient(lighten-1($color-amber-yellow));
+      background: lighten-1($color-gunmetal-gray);
     }
 
     &:hover {
-      background: monochrome-gradient(lighten-2($color-amaranth-red));
+      &.is-color-a {
+        background: lighten-2($color-cerulean-blue);
+      }
 
       &.is-color-b {
-        background: monochrome-gradient(lighten-2($color-blue-violet));
+        background: lighten-2($color-space-gray);
+      }
+
+      &.is-color-c {
+        background: lighten-2($color-gunmetal-gray);
       }
     }
 
     &:active {
-      background: monochrome-gradient(lighten-1($color-amaranth-red));
+      &.is-color-a {
+        background: lighten-1($color-cerulean-blue);
+      }
+
+      &.is-color-b {
+        background: lighten-1($color-space-gray);
+      }
+
+      &.is-color-c {
+        background: lighten-1($color-gunmetal-gray);
+      }
     }
 
     &:disabled {
       cursor: not-allowed;
-      background: monochrome-gradient(darken-1($color-light-gray));
+      background: darken-1($color-platinum-gray);
     }
   }
 }
