@@ -1,0 +1,82 @@
+@use "../../scss/index" as *;
+
+.posts-feed-page {
+  @extend %container;
+
+  padding-top: $space-3;
+
+  &__section-heading {
+    @extend %h2-sans;
+
+    @include gradient-text();
+  }
+
+  &__section-paragraph {
+    @extend %body-sans;
+
+    font-weight: $font-weight-bold;
+    margin-top: $space-4;
+  }
+
+  &__categories-list {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    row-gap: $space-1;
+    column-gap: $space-1;
+    justify-content: center;
+    margin-top: $space-3;
+  }
+
+  &__categories-list-item {
+    display: flex;
+    flex-direction: row;
+  }
+
+  &__category-button {
+    @extend %body-sans;
+
+    appearance: none;
+    border: none;
+    background: none;
+    cursor: pointer;
+    background: monochrome-gradient(lighten-1($color-amaranth-red));
+    color: $color-pure-white;
+    font-weight: $font-weight-medium;
+    padding: $space-1 $space-2;
+    border-radius: 10px;
+    text-wrap: nowrap;
+
+    &.is-color-b {
+      background: monochrome-gradient(lighten-1($color-blue-violet));
+    }
+
+    &.is-color-c {
+      background: monochrome-gradient(lighten-1($color-azure-blue));
+    }
+
+    &.is-color-d {
+      background: monochrome-gradient(lighten-1($color-amber-yellow));
+    }
+
+    &:hover {
+      background: monochrome-gradient(lighten-2($color-amaranth-red));
+
+      &.is-color-b {
+        background: monochrome-gradient(lighten-2($color-blue-violet));
+      }
+    }
+
+    &:active {
+      background: monochrome-gradient(lighten-1($color-amaranth-red));
+    }
+
+    &:disabled {
+      cursor: not-allowed;
+      background: monochrome-gradient(darken-1($color-light-gray));
+    }
+  }
+}
