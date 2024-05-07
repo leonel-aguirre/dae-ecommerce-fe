@@ -1,10 +1,10 @@
 @use "../../scss/index" as *;
 
 .log-in-page {
-  $form-container-border-color: $color-light-gray;
-  $main-header-text-color: $color-amaranth-red;
-  $default-text-color: $color-gunmetal-black;
-  $create-account-anchor-text-color: $color-amaranth-red;
+  $form-container-border-color: $color-platinum-gray;
+  $main-header-text-color: $color-cerulean-blue;
+  $default-text-color: $color-eerie-black;
+  $create-account-anchor-text-color: $color-cerulean-blue;
 
   &__header {
     display: flex;

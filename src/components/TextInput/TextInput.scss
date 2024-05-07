@@ -1,10 +1,10 @@
 @use "../../scss/index.scss" as *;
 
 .text-input {
-  $default-text-color: $color-gunmetal-black;
-  $border-color: lighten-3($color-gunmetal-black);
-  $border-hover-color: lighten-2($color-gunmetal-black);
-  $border-focus-color: lighten-1($color-gunmetal-black);
+  $default-text-color: $color-eerie-black;
+  $border-color: lighten-3($color-eerie-black);
+  $border-hover-color: lighten-2($color-eerie-black);
+  $border-focus-color: lighten-1($color-eerie-black);
 
   @extend %body-sans;
 
