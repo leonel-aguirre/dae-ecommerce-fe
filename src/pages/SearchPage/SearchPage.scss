@@ -5,7 +5,6 @@
 
   &__search-term-section {
     background-color: $color-mint-green;
-    margin-bottom: $space-5;
   }
 
   &__search-term-section-container {
@@ -22,6 +21,71 @@
 
     color: $color-pure-white;
     font-weight: $font-weight-bold;
+  }
+
+  &__search-filters-section {
+    margin-bottom: $space-5;
+    background-color: $color-mint-green;
+    padding-bottom: $space-2;
+  }
+
+  &__filters-list {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    row-gap: $space-1;
+    column-gap: $space-1;
+    justify-content: center;
+  }
+
+  &__filters-list-item {
+    display: flex;
+    flex-direction: row;
+  }
+
+  &__filter-button {
+    @extend %body-small-sans;
+
+    appearance: none;
+    border: none;
+    background: $color-pure-white;
+    cursor: pointer;
+    color: $color-gunmetal-gray;
+    font-weight: $font-weight-medium;
+    padding: $space-1 $space-2;
+    border-radius: 50px;
+    text-wrap: nowrap;
+    border: 3px solid transparent;
+
+    &.is-clear-button {
+      background: $color-space-gray;
+      color: $color-pure-white;
+
+      &:hover {
+        background: darken-3($color-space-gray);
+      }
+
+      &:active {
+        background: darken-2($color-space-gray);
+      }
+    }
+
+    &:hover {
+      background: lighten-3($color-mint-green);
+    }
+
+    &:active {
+      background: lighten-2($color-mint-green);
+    }
+
+    &:disabled {
+      cursor: not-allowed;
+      border: 3px dashed darken-1($color-mint-green);
+      background: lighten-3($color-mint-green);
+    }
   }
 
   &__search-results-section {
