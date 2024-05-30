@@ -1,12 +1,32 @@
 @use "../../scss/index" as *;
 
 .search-page {
-  @extend %container;
-
-  padding: $space-6 0;
   padding-bottom: $space-7;
 
+  &__search-term-section {
+    background-color: $color-mint-green;
+    margin-bottom: $space-5;
+  }
+
+  &__search-term-section-container {
+    @extend %container;
+
+    padding: $space-4;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  &__search-term-text {
+    @extend %h4-sans;
+
+    color: $color-pure-white;
+    font-weight: $font-weight-bold;
+  }
+
   &__search-results-section {
+    @extend %container;
+
     display: flex;
     flex-direction: column;
     row-gap: $space-5;

@@ -35,11 +35,6 @@ const ProductCard = ({ product, isSmall = false }) => {
             />
           </div>
         )}
-        {/* {isSmall && (
-          <div className="product-card__add-to-cart-button-wrapper">
-            <Button text={"Add to Cart"} icon={faCartShopping} />
-          </div>
-        )} */}
       </div>
       <div className="product-card__product-information">
         <p className="product-card__product-title">{productTitle}</p>
@@ -65,11 +60,6 @@ const ProductCard = ({ product, isSmall = false }) => {
             $ {productCurrentPrice}
           </p>
         </div>
-        {/* {!isSmall && (
-          <div className="product-card__add-to-cart-button-wrapper">
-            <Button text={"Add to Cart"} icon={faCartShopping} />
-          </div>
-        )} */}
       </div>
       <div className="product-card__add-to-cart-button-wrapper">
         <Button text={"Add to Cart"} icon={faCartShopping} />
