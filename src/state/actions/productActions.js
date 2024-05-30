@@ -1,3 +1,4 @@
+import axios from "axios"
 import { get, post } from "../../api"
 import {
   CLEAR_SEARCH_RESULTS,
@@ -61,6 +62,42 @@ const fetchSearchResults = (searchTerm, tag) => async (dispatch) => {
   }
 }
 
+const createProduct = (productData) => async () => {
+  const {
+    title,
+    description,
+    currentPrice: current_price,
+    tags,
+    imageFile,
+  } = productData
+
+  try {
+    const { data } = await post("/products", {
+      product: { title, description, current_price, tags },
+    })
+
+    if (data?.data) {
+      if (imageFile) {
+        const formData = new FormData()
+        formData.append("data", imageFile)
+
+        await post(`/products/upload_image/${data?.data?.id}`, formData, {
+          "content-type": "multipart/form-data",
+        })
+      }
+
+      return { success: true }
+    }
+  } catch (error) {
+    console.error(error)
+
+    return {
+      success: false,
+      message: "Error while trying to create a product search.",
+    }
+  }
+}
+
 const setProductCategories = (productCategories) => async (dispatch) => {
   await dispatch({
     type: SET_PRODUCT_CATEGORIES,
@@ -96,4 +133,5 @@ export const actions = {
   fetchSearchResults,
   setSearchResults,
   clearSearchResults,
+  createProduct,
 }

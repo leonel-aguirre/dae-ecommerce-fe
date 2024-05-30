@@ -4,10 +4,11 @@ import React, { useEffect, useState } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import { useNavigate, useSearchParams } from "react-router-dom"
 
-import { productActions, productSelectors } from "../../state/index"
-import ProductCard from "../../components/ProductCard/ProductCard"
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faCircleNotch, faX } from "@fortawesome/free-solid-svg-icons"
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
+
+import ProductCard from "../../components/ProductCard/ProductCard"
+import { productActions, productSelectors } from "../../state/index"
 
 const { fetchSearchResults, fetchProductCategories } = productActions
 const { selectSearchResults, selectProductCategories } = productSelectors
@@ -27,7 +28,12 @@ const SearchPage = () => {
     const triggerFetch = async () => {
       setIsLoading(true)
       await dispatch(fetchProductCategories())
-      await dispatch(fetchSearchResults(searchTerm, filter))
+      await dispatch(
+        fetchSearchResults(
+          searchTerm,
+          filter?.replaceAll("-and-", "&") || null,
+        ),
+      )
       setIsLoading(false)
     }
 

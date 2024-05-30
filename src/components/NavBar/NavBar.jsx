@@ -7,6 +7,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import {
   faCog,
   faMagnifyingGlass,
+  faPlus,
   faRightToBracket,
   faUserLargeSlash,
 } from "@fortawesome/free-solid-svg-icons"
@@ -47,6 +48,10 @@ const NavBar = () => {
     dispatch(logOut())
   }
 
+  const handlerAddProductButton = () => {
+    navigate("/add-product")
+  }
+
   const handleSearchButton = (e) => {
     e.preventDefault()
 
@@ -81,6 +86,15 @@ const NavBar = () => {
             >
               <FontAwesomeIcon
                 icon={faUserLargeSlash}
+                className="nav-bar__user-action-button-icon"
+              />
+            </button>
+            <button
+              className="nav-bar__user-action-button"
+              onClick={handlerAddProductButton}
+            >
+              <FontAwesomeIcon
+                icon={faPlus}
                 className="nav-bar__user-action-button-icon"
               />
             </button>
