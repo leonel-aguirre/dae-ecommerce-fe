@@ -8,7 +8,7 @@ const reducer = (state = defaultState, action = "") => {
   switch (action.type) {
     case SET_IS_USER_AUTHENTICATED:
       return {
-        ...defaultState,
+        ...state,
         isUserAuthenticated: action.payload.value,
       }
     default:

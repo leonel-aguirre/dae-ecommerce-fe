@@ -1,0 +1,122 @@
+@use "../../scss/index" as *;
+
+.product-card {
+  $image-size: 300px;
+  $small-image-size: 200px;
+  $no-image-icon-size: 80px;
+
+  display: flex;
+  flex-direction: row;
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  grid-template-areas: ". img img img info info info info info cart cart .";
+
+  &.is-small {
+    grid-template-areas: ". img info info info info info info info cart cart .";
+  }
+
+  &__image-wrapper {
+    grid-area: img;
+  }
+
+  &__image {
+    width: $image-size;
+    height: $image-size;
+    object-fit: cover;
+    border-radius: 10px;
+
+    &.is-small {
+      width: $small-image-size;
+      height: $small-image-size;
+    }
+  }
+
+  &__no-image {
+    width: $image-size;
+    height: $image-size;
+    background-color: lighten-2($color-french-gray);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 10px;
+
+    &.is-small {
+      width: $small-image-size;
+      height: $small-image-size;
+    }
+  }
+
+  &__no-image-icon {
+    font-size: $no-image-icon-size;
+    color: darken-1($color-french-gray);
+  }
+
+  &__product-information {
+    grid-area: info;
+    margin-left: $space-3;
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+  }
+
+  &__product-title {
+    @extend %h3-sans;
+
+    font-weight: $font-weight-semibold;
+
+    color: $color-eerie-black;
+  }
+
+  &__product-description {
+    @extend %body-sans;
+
+    color: $color-gunmetal-gray;
+  }
+
+  &__product-tags-list {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    column-gap: $space-1;
+    margin-top: $space-3;
+  }
+
+  &__product-tag {
+    @extend %body-small-sans;
+
+    background-color: $color-cerulean-blue;
+    padding: $space-1 $space-2;
+    color: $color-pure-white;
+    font-weight: $font-weight-medium;
+    border-radius: 20px;
+  }
+
+  &__product-pricing {
+    display: flex;
+    flex-direction: column;
+    margin-top: $space-3;
+  }
+
+  &__product-previous-price {
+    @extend %body-sans;
+
+    font-weight: $font-weight-medium;
+    color: $color-eerie-black;
+  }
+
+  &__product-current-price {
+    @extend %h4-sans;
+
+    font-weight: $font-weight-bold;
+    color: darken-1($color-mint-green);
+  }
+
+  &__add-to-cart-button-wrapper {
+    grid-area: cart;
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    align-items: flex-end;
+  }
+}

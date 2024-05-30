@@ -1,6 +1,6 @@
 import "./NavBar.scss"
 
-import React, { useEffect } from "react"
+import React, { useEffect, useState } from "react"
 import { useSelector, useDispatch } from "react-redux"
 import { useNavigate } from "react-router-dom"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
@@ -18,6 +18,7 @@ import {
   accountSelectors,
   authActions,
 } from "../../state"
+import { URL_SEARCH_PAGE } from "../../constants"
 
 const { logOut } = authActions
 const { fetchAccountData } = accountActions
@@ -29,6 +30,8 @@ const NavBar = () => {
   const isUserAuthenticated = useSelector(selectIsUserAuthenticated)
   const userFullName = useSelector(selectUserFullName)
   const navigate = useNavigate()
+
+  const [searchTerm, setSearchTerm] = useState("")
 
   useEffect(() => {
     if (isUserAuthenticated) {
@@ -42,6 +45,17 @@ const NavBar = () => {
 
   const handleLogOutButton = () => {
     dispatch(logOut())
+  }
+
+  const handleSearchButton = (e) => {
+    e.preventDefault()
+
+    if (searchTerm) {
+      navigate(`/search?term=${searchTerm}`)
+      setSearchTerm("")
+    } else {
+      navigate(URL_SEARCH_PAGE)
+    }
   }
 
   const renderRightEndContent = () => {
@@ -91,17 +105,22 @@ const NavBar = () => {
   return (
     <nav className="nav-bar">
       <AppLogo />
-      <div className="nav-bar__search-box-container">
+      <form className="nav-bar__search-box-container">
         <input
           className="nav-bar__search-box"
           type="text"
           size={25}
           placeholder="Search for products ..."
+          value={searchTerm}
+          onChange={(e) => setSearchTerm(e.target.value)}
         />
-        <button className="nav-bar__search-box-button">
+        <button
+          className="nav-bar__search-box-button"
+          onClick={handleSearchButton}
+        >
           <FontAwesomeIcon icon={faMagnifyingGlass} size="lg" />
         </button>
-      </div>
+      </form>
 
       {renderRightEndContent()}
     </nav>

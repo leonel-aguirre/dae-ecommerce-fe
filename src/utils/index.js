@@ -12,10 +12,21 @@ export const snakeToCamelCaseObjectKeys = (object) => {
   Object.keys(object).forEach((key) => {
     let currentValue = object[key]
     let isObject = typeof currentValue === "object"
+    let isArray = Array.isArray(currentValue)
+    let isNull = currentValue === null || currentValue === undefined
 
-    tempObject[snakeToCamelCaseString(key)] = isObject
-      ? snakeToCamelCaseObjectKeys(currentValue)
-      : currentValue
+    if (isNull) {
+      tempObject[snakeToCamelCaseString(key)] = undefined
+    } else if (isObject && isArray) {
+      tempObject[snakeToCamelCaseString(key)] = Object.values(
+        snakeToCamelCaseObjectKeys(currentValue),
+      )
+    } else if (isObject && !isArray) {
+      tempObject[snakeToCamelCaseString(key)] =
+        snakeToCamelCaseObjectKeys(currentValue)
+    } else {
+      tempObject[snakeToCamelCaseString(key)] = currentValue
+    }
   })
 
   return tempObject

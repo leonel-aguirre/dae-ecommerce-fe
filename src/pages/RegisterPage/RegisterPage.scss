@@ -1,10 +1,10 @@
 @use "../../scss/index" as *;
 
-.log-in-page {
-  $form-container-border-color: $color-light-gray;
-  $main-header-text-color: $color-amaranth-red;
-  $default-text-color: $color-gunmetal-black;
-  $create-account-anchor-text-color: $color-amaranth-red;
+.register-page {
+  $form-container-border-color: $color-platinum-gray;
+  $main-header-text-color: $color-cerulean-blue;
+  $default-text-color: $color-eerie-black;
+  $create-account-anchor-text-color: $color-cerulean-blue;
 
   &__header {
     display: flex;
@@ -27,7 +27,7 @@
     @include gradient-text($main-header-text-color);
   }
 
-  &__log-in-text {
+  &__sub-title-text {
     @extend %body-sans;
 
     margin-top: $space-2;
@@ -42,7 +42,7 @@
     row-gap: $space-1;
   }
 
-  &__forgot-password-text {
+  &__already-have-an-account-text {
     @extend %body-small-sans;
 
     color: $default-text-color;
@@ -50,7 +50,7 @@
     margin-top: $space-3;
   }
 
-  &__create-account-anchor {
+  &__log-in-anchor {
     color: $create-account-anchor-text-color;
   }
 }
