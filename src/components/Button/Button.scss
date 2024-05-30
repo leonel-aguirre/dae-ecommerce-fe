@@ -38,4 +38,8 @@
     border: 2px solid $border-disabled-color;
     background-color: $background-disabled-color;
   }
+
+  &__icon {
+    margin-right: $space-1;
+  }
 }

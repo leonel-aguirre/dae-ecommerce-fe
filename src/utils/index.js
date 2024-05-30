@@ -12,9 +12,12 @@ export const snakeToCamelCaseObjectKeys = (object) => {
   Object.keys(object).forEach((key) => {
     let currentValue = object[key]
     let isObject = typeof currentValue === "object"
+    let isArray = Array.isArray(currentValue)
 
     tempObject[snakeToCamelCaseString(key)] = isObject
-      ? snakeToCamelCaseObjectKeys(currentValue)
+      ? isArray
+        ? Object.values(snakeToCamelCaseObjectKeys(currentValue))
+        : snakeToCamelCaseObjectKeys(currentValue)
       : currentValue
   })
 
