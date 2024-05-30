@@ -1,5 +1,6 @@
-import { get } from "../../api"
+import { get, post } from "../../api"
 import {
+  CLEAR_SEARCH_RESULTS,
   SET_FEATURED_PRODUCT,
   SET_PRODUCT_CATEGORIES,
   SET_SEARCH_RESULTS,
@@ -41,9 +42,10 @@ const fetchFeaturedProduct = () => async (dispatch) => {
   }
 }
 
-const fetchSearchResults = () => async (dispatch) => {
+const fetchSearchResults = (searchTerm, tag) => async (dispatch) => {
   try {
-    const { data } = await get("/products")
+    await dispatch(clearSearchResults())
+    const { data } = await post("/search", { term: searchTerm, tag: tag })
 
     if (data?.data) {
       await dispatch(setSearchResults(data.data))
@@ -80,6 +82,12 @@ const setSearchResults = (searchResults) => async (dispatch) => {
   })
 }
 
+const clearSearchResults = () => async (dispatch) => {
+  await dispatch({
+    type: CLEAR_SEARCH_RESULTS,
+  })
+}
+
 export const actions = {
   fetchProductCategories,
   setProductCategories,
@@ -87,4 +95,5 @@ export const actions = {
   setFeaturedProduct,
   fetchSearchResults,
   setSearchResults,
+  clearSearchResults,
 }

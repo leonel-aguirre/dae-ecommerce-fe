@@ -3,6 +3,7 @@ import { snakeToCamelCaseObjectKeys } from "../../utils"
 export const SET_PRODUCT_CATEGORIES = "SET_PRODUCT_CATEGORIES"
 export const SET_FEATURED_PRODUCT = "SET_FEATURED_PRODUCT"
 export const SET_SEARCH_RESULTS = "SET_SEARCH_RESULTS"
+export const CLEAR_SEARCH_RESULTS = "CLEAR_SEARCH_RESULTS"
 
 export const defaultState = {
   productCategories: [],
@@ -30,6 +31,11 @@ const reducer = (state = defaultState, action) => {
         searchResults: action.payload.searchResults?.map((result) =>
           snakeToCamelCaseObjectKeys(result),
         ),
+      }
+    case CLEAR_SEARCH_RESULTS:
+      return {
+        ...state,
+        searchResults: [],
       }
     default:
       return state
