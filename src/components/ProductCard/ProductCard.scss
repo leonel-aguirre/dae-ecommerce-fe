@@ -1,20 +1,54 @@
 @use "../../scss/index" as *;
 
 .product-card {
+  $image-size: 300px;
+  $small-image-size: 200px;
+  $no-image-icon-size: 80px;
+
   display: flex;
   flex-direction: row;
   display: grid;
   grid-template-columns: repeat(12, 1fr);
-  grid-template-areas: ". img img img info info info info info info info .";
+  grid-template-areas: ". img img img info info info info info cart cart .";
 
-  $image-size: 300px;
+  &.is-small {
+    grid-template-areas: ". img info info info info info info info cart cart .";
+  }
+
+  &__image-wrapper {
+    grid-area: img;
+  }
 
   &__image {
-    grid-area: img;
     width: $image-size;
     height: $image-size;
     object-fit: cover;
     border-radius: 10px;
+
+    &.is-small {
+      width: $small-image-size;
+      height: $small-image-size;
+    }
+  }
+
+  &__no-image {
+    width: $image-size;
+    height: $image-size;
+    background-color: lighten-2($color-french-gray);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 10px;
+
+    &.is-small {
+      width: $small-image-size;
+      height: $small-image-size;
+    }
+  }
+
+  &__no-image-icon {
+    font-size: $no-image-icon-size;
+    color: darken-1($color-french-gray);
   }
 
   &__product-information {
@@ -79,8 +113,10 @@
   }
 
   &__add-to-cart-button-wrapper {
+    grid-area: cart;
     display: flex;
     flex: 1;
+    flex-direction: column;
     align-items: flex-end;
   }
 }

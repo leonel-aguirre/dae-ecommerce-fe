@@ -2,6 +2,7 @@ import { get } from "../../api"
 import {
   SET_FEATURED_PRODUCT,
   SET_PRODUCT_CATEGORIES,
+  SET_SEARCH_RESULTS,
 } from "../reducers/productReducer"
 
 const fetchProductCategories = () => async (dispatch) => {
@@ -40,6 +41,24 @@ const fetchFeaturedProduct = () => async (dispatch) => {
   }
 }
 
+const fetchSearchResults = () => async (dispatch) => {
+  try {
+    const { data } = await get("/products")
+
+    if (data?.data) {
+      await dispatch(setSearchResults(data.data))
+      return { success: true }
+    }
+  } catch (error) {
+    console.error(error)
+
+    return {
+      success: false,
+      message: "Error while trying to perform a product search.",
+    }
+  }
+}
+
 const setProductCategories = (productCategories) => async (dispatch) => {
   await dispatch({
     type: SET_PRODUCT_CATEGORIES,
@@ -54,9 +73,18 @@ const setFeaturedProduct = (featuredProduct) => async (dispatch) => {
   })
 }
 
+const setSearchResults = (searchResults) => async (dispatch) => {
+  await dispatch({
+    type: SET_SEARCH_RESULTS,
+    payload: { searchResults },
+  })
+}
+
 export const actions = {
   fetchProductCategories,
   setProductCategories,
   fetchFeaturedProduct,
   setFeaturedProduct,
+  fetchSearchResults,
+  setSearchResults,
 }

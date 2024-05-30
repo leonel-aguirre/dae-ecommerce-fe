@@ -1,0 +1,14 @@
+@use "../../scss/index" as *;
+
+.search-page {
+  @extend %container;
+
+  padding: $space-6 0;
+  padding-bottom: $space-7;
+
+  &__search-results-section {
+    display: flex;
+    flex-direction: column;
+    row-gap: $space-5;
+  }
+}
