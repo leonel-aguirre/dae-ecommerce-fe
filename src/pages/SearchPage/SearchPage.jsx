@@ -66,7 +66,7 @@ const SearchPage = () => {
         <>
           <section className="search-page__search-filters-section">
             <ul className="search-page__filters-list">
-              {productCategories.map((productCategory, index) => {
+              {productCategories.map((productCategory) => {
                 const { id, title } = productCategory
                 const currentFilter = filter?.replaceAll("-and-", "&") || ""
 

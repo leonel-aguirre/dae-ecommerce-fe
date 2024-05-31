@@ -2,20 +2,36 @@ import "./ProductCard.scss"
 
 import React from "react"
 import PropTypes from "prop-types"
-import { faCartShopping, faImage } from "@fortawesome/free-solid-svg-icons"
-
-import Button from "../Button/Button"
+import {
+  faCartShopping,
+  faImage,
+  faPenToSquare,
+  faTrash,
+} from "@fortawesome/free-solid-svg-icons"
+import { useDispatch } from "react-redux"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 
-const ProductCard = ({ product, isSmall = false }) => {
+import Button from "../Button/Button"
+import { productActions } from "../../state/index"
+
+const { deleteUserProduct } = productActions
+
+const ProductCard = ({ product, isSmall = false, isOwned = false }) => {
+  const dispatch = useDispatch()
+
   const productImageID = product?.productImages?.[0]?.id
   const productTitle = product?.title
   const productDescription = product?.description
   const productTags = product?.tags
   const productCurrentPrice = product?.currentPrice
   const productPreviousPrice = product?.previousPrice
+  const productID = product?.id
 
   const shouldShowPreviousPrice = productCurrentPrice < productPreviousPrice
+
+  const handleDeleteButton = () => {
+    dispatch(deleteUserProduct(productID))
+  }
 
   return (
     <div className={`product-card ${isSmall ? "is-small" : ""}`}>
@@ -61,9 +77,22 @@ const ProductCard = ({ product, isSmall = false }) => {
           </p>
         </div>
       </div>
-      <div className="product-card__add-to-cart-button-wrapper">
-        <Button text={"Add to Cart"} icon={faCartShopping} />
-      </div>
+      {isOwned ? (
+        <>
+          <div className="product-card__add-to-cart-button-wrapper">
+            <Button
+              text={"Delete"}
+              icon={faTrash}
+              onClick={handleDeleteButton}
+            />
+            <Button text={"Edit"} icon={faPenToSquare} />
+          </div>
+        </>
+      ) : (
+        <div className="product-card__add-to-cart-button-wrapper">
+          <Button text={"Add to Cart"} icon={faCartShopping} />
+        </div>
+      )}
     </div>
   )
 }
@@ -71,6 +100,7 @@ const ProductCard = ({ product, isSmall = false }) => {
 ProductCard.propTypes = {
   product: PropTypes.object.isRequired,
   isSmall: PropTypes.bool,
+  isOwned: PropTypes.bool,
 }
 
 export default ProductCard

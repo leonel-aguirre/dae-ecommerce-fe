@@ -1,10 +1,10 @@
-import axios from "axios"
-import { get, post } from "../../api"
+import { del, get, post } from "../../api"
 import {
   CLEAR_SEARCH_RESULTS,
   SET_FEATURED_PRODUCT,
   SET_PRODUCT_CATEGORIES,
   SET_SEARCH_RESULTS,
+  SET_USER_PRODUCTS,
 } from "../reducers/productReducer"
 
 const fetchProductCategories = () => async (dispatch) => {
@@ -98,6 +98,44 @@ const createProduct = (productData) => async () => {
   }
 }
 
+const fetchUserProducts = () => async (dispatch) => {
+  try {
+    const { data } = await get("/user/products")
+
+    if (data?.data) {
+      await dispatch(setUserProducts(data.data))
+      return { success: true }
+    }
+  } catch (error) {
+    console.error(error)
+
+    return {
+      success: false,
+      message: "Error while trying to fetch user products.",
+    }
+  }
+}
+
+const deleteUserProduct = (productID) => async (dispatch) => {
+  try {
+    const { data } = await del(`/products/${productID}`)
+
+    if (data) {
+      console.log("fetchUserProducts")
+
+      await dispatch(fetchUserProducts())
+      return { success: true }
+    }
+  } catch (error) {
+    console.error(error)
+
+    return {
+      success: false,
+      message: "Error while trying to delete user product.",
+    }
+  }
+}
+
 const setProductCategories = (productCategories) => async (dispatch) => {
   await dispatch({
     type: SET_PRODUCT_CATEGORIES,
@@ -125,6 +163,13 @@ const clearSearchResults = () => async (dispatch) => {
   })
 }
 
+const setUserProducts = (userProducts) => async (dispatch) => {
+  await dispatch({
+    type: SET_USER_PRODUCTS,
+    payload: { userProducts },
+  })
+}
+
 export const actions = {
   fetchProductCategories,
   setProductCategories,
@@ -134,4 +179,6 @@ export const actions = {
   setSearchResults,
   clearSearchResults,
   createProduct,
+  fetchUserProducts,
+  deleteUserProduct,
 }

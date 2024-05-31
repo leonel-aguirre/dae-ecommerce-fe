@@ -13,7 +13,11 @@ import {
   authSelectors,
 } from "../../state/index"
 import { useNavigate } from "react-router-dom"
-import { URL_HOME_PAGE, URL_LOG_IN_PAGE } from "../../constants"
+import {
+  URL_HOME_PAGE,
+  URL_LOG_IN_PAGE,
+  URL_USER_PRODUCTS_PAGE,
+} from "../../constants"
 
 const { fetchProductCategories, createProduct } = productActions
 const { selectProductCategories } = productSelectors
@@ -77,7 +81,7 @@ const AddProductPage = () => {
     )
 
     if (success) {
-      navigate(URL_HOME_PAGE)
+      navigate(URL_USER_PRODUCTS_PAGE)
     } else {
       alert(message)
       reset()

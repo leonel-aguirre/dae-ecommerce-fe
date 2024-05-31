@@ -16,10 +16,12 @@ import {
   URL_LOG_IN_PAGE,
   URL_REGISTER_PAGE,
   URL_SEARCH_PAGE,
+  URL_USER_PRODUCTS_PAGE,
 } from "./constants"
 import NavBar from "./components/NavBar/NavBar"
 import SearchPage from "./pages/SearchPage/SearchPage"
 import AddProductPage from "./pages/AddProductPage/AddProductPage"
+import UserProductsPage from "./pages/UserProductsPage/UserProductsPage"
 
 const store = configureStore({
   reducer,
@@ -49,6 +51,10 @@ const App = () => {
                 <Route
                   path={URL_ADD_PRODUCT_PAGE}
                   element={<AddProductPage />}
+                />
+                <Route
+                  path={URL_USER_PRODUCTS_PAGE}
+                  element={<UserProductsPage />}
                 />
               </Route>
               <Route path={URL_LOG_IN_PAGE} element={<LogInPage />} />
