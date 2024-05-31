@@ -1,4 +1,5 @@
-import { del, get, post } from "../../api"
+import { del, get, post, put } from "../../api"
+import { snakeToCamelCaseObjectKeys } from "../../utils"
 import {
   CLEAR_SEARCH_RESULTS,
   SET_FEATURED_PRODUCT,
@@ -39,6 +40,26 @@ const fetchFeaturedProduct = () => async (dispatch) => {
     return {
       success: false,
       message: "Error while trying to retrieve product categories.",
+    }
+  }
+}
+
+const fetchProductByID = (productID) => async () => {
+  try {
+    const { data } = await get(`/products/${productID}`)
+
+    if (data) {
+      return { success: true, data: snakeToCamelCaseObjectKeys(data) }
+    } else {
+      return { success: false, data: {} }
+    }
+  } catch (error) {
+    console.error(error)
+
+    return {
+      success: false,
+      data: {},
+      message: "Error while trying to retrieve product.",
     }
   }
 }
@@ -116,6 +137,45 @@ const fetchUserProducts = () => async (dispatch) => {
   }
 }
 
+const updateProductByID = (productID, updatedProduct) => async (dispatch) => {
+  try {
+    const { title, description, currentPrice, previousPrice, tags, imageFile } =
+      updatedProduct
+
+    const { data } = await put(`/products/${productID}`, {
+      product: {
+        title,
+        description,
+        current_price: currentPrice,
+        previous_price: previousPrice,
+        tags,
+      },
+    })
+
+    console.log(data?.data)
+
+    if (data?.data && imageFile) {
+      const formData = new FormData()
+      formData.append("data", imageFile)
+
+      await post(`/products/upload_image/${productID}`, formData, {
+        "content-type": "multipart/form-data",
+      })
+
+      return { success: true }
+    } else {
+      return { success: false }
+    }
+  } catch (error) {
+    console.error(error)
+
+    return {
+      success: false,
+      message: "Error while trying to update product.",
+    }
+  }
+}
+
 const deleteUserProduct = (productID) => async (dispatch) => {
   try {
     const { data } = await del(`/products/${productID}`)
@@ -172,13 +232,15 @@ const setUserProducts = (userProducts) => async (dispatch) => {
 
 export const actions = {
   fetchProductCategories,
-  setProductCategories,
   fetchFeaturedProduct,
-  setFeaturedProduct,
   fetchSearchResults,
-  setSearchResults,
-  clearSearchResults,
-  createProduct,
   fetchUserProducts,
+  fetchProductByID,
+  setProductCategories,
+  setFeaturedProduct,
+  setSearchResults,
+  createProduct,
+  clearSearchResults,
+  updateProductByID,
   deleteUserProduct,
 }

@@ -10,6 +10,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons"
 import { useDispatch } from "react-redux"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
+import { useNavigate } from "react-router-dom"
 
 import Button from "../Button/Button"
 import { productActions } from "../../state/index"
@@ -18,6 +19,7 @@ const { deleteUserProduct } = productActions
 
 const ProductCard = ({ product, isSmall = false, isOwned = false }) => {
   const dispatch = useDispatch()
+  const navigate = useNavigate()
 
   const productImageID = product?.productImages?.[0]?.id
   const productTitle = product?.title
@@ -31,6 +33,10 @@ const ProductCard = ({ product, isSmall = false, isOwned = false }) => {
 
   const handleDeleteButton = () => {
     dispatch(deleteUserProduct(productID))
+  }
+
+  const handleEditButton = () => {
+    navigate(`/edit-product/${productID}`)
   }
 
   return (
@@ -85,7 +91,11 @@ const ProductCard = ({ product, isSmall = false, isOwned = false }) => {
               icon={faTrash}
               onClick={handleDeleteButton}
             />
-            <Button text={"Edit"} icon={faPenToSquare} />
+            <Button
+              text={"Edit"}
+              icon={faPenToSquare}
+              onClick={handleEditButton}
+            />
           </div>
         </>
       ) : (

@@ -80,12 +80,12 @@ const RegisterPage = () => {
           />
           <TextInput
             placeholder={"Password"}
-            isPasswordType={true}
+            type="password"
             {...register("password", { required: true })}
           />
           <TextInput
             placeholder={"Confirm password"}
-            isPasswordType={true}
+            type="password"
             {...register("confirmPassword", { required: true })}
           />
           <Button
