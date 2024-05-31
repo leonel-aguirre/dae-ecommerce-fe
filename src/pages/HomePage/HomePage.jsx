@@ -57,7 +57,9 @@ const HomePage = () => {
                 <button
                   className={`home-page__category-button is-color-${colorType}`}
                   onClick={() =>
-                    handleCategoryButtonClick(`/search?category=${title}`)
+                    handleCategoryButtonClick(
+                      `/search?filter=${title?.replaceAll("&", "-and-")}`,
+                    )
                   }
                 >
                   {title}

@@ -5,9 +5,10 @@ import { useSelector, useDispatch } from "react-redux"
 import { useNavigate } from "react-router-dom"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import {
-  faCog,
   faMagnifyingGlass,
+  faPlus,
   faRightToBracket,
+  faTableList,
   faUserLargeSlash,
 } from "@fortawesome/free-solid-svg-icons"
 
@@ -47,6 +48,14 @@ const NavBar = () => {
     dispatch(logOut())
   }
 
+  const handleAddProductButton = () => {
+    navigate("/add-product")
+  }
+
+  const handleUserProductsButton = () => {
+    navigate("/user-products")
+  }
+
   const handleSearchButton = (e) => {
     e.preventDefault()
 
@@ -69,12 +78,26 @@ const NavBar = () => {
             !
           </p>
           <div className="nav-bar__action-buttons-wrapper">
-            <button className="nav-bar__user-action-button">
+            <button
+              className="nav-bar__user-action-button"
+              onClick={handleUserProductsButton}
+            >
               <FontAwesomeIcon
-                icon={faCog}
+                icon={faTableList}
                 className="nav-bar__user-action-button-icon"
               />
             </button>
+
+            <button
+              className="nav-bar__user-action-button"
+              onClick={handleAddProductButton}
+            >
+              <FontAwesomeIcon
+                icon={faPlus}
+                className="nav-bar__user-action-button-icon"
+              />
+            </button>
+
             <button
               className="nav-bar__user-action-button"
               onClick={handleLogOutButton}

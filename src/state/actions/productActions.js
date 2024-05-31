@@ -1,9 +1,10 @@
-import { get, post } from "../../api"
+import { del, get, post } from "../../api"
 import {
   CLEAR_SEARCH_RESULTS,
   SET_FEATURED_PRODUCT,
   SET_PRODUCT_CATEGORIES,
   SET_SEARCH_RESULTS,
+  SET_USER_PRODUCTS,
 } from "../reducers/productReducer"
 
 const fetchProductCategories = () => async (dispatch) => {
@@ -61,6 +62,80 @@ const fetchSearchResults = (searchTerm, tag) => async (dispatch) => {
   }
 }
 
+const createProduct = (productData) => async () => {
+  const {
+    title,
+    description,
+    currentPrice: current_price,
+    tags,
+    imageFile,
+  } = productData
+
+  try {
+    const { data } = await post("/products", {
+      product: { title, description, current_price, tags },
+    })
+
+    if (data?.data) {
+      if (imageFile) {
+        const formData = new FormData()
+        formData.append("data", imageFile)
+
+        await post(`/products/upload_image/${data?.data?.id}`, formData, {
+          "content-type": "multipart/form-data",
+        })
+      }
+
+      return { success: true }
+    }
+  } catch (error) {
+    console.error(error)
+
+    return {
+      success: false,
+      message: "Error while trying to create a product search.",
+    }
+  }
+}
+
+const fetchUserProducts = () => async (dispatch) => {
+  try {
+    const { data } = await get("/user/products")
+
+    if (data?.data) {
+      await dispatch(setUserProducts(data.data))
+      return { success: true }
+    }
+  } catch (error) {
+    console.error(error)
+
+    return {
+      success: false,
+      message: "Error while trying to fetch user products.",
+    }
+  }
+}
+
+const deleteUserProduct = (productID) => async (dispatch) => {
+  try {
+    const { data } = await del(`/products/${productID}`)
+
+    if (data) {
+      console.log("fetchUserProducts")
+
+      await dispatch(fetchUserProducts())
+      return { success: true }
+    }
+  } catch (error) {
+    console.error(error)
+
+    return {
+      success: false,
+      message: "Error while trying to delete user product.",
+    }
+  }
+}
+
 const setProductCategories = (productCategories) => async (dispatch) => {
   await dispatch({
     type: SET_PRODUCT_CATEGORIES,
@@ -88,6 +163,13 @@ const clearSearchResults = () => async (dispatch) => {
   })
 }
 
+const setUserProducts = (userProducts) => async (dispatch) => {
+  await dispatch({
+    type: SET_USER_PRODUCTS,
+    payload: { userProducts },
+  })
+}
+
 export const actions = {
   fetchProductCategories,
   setProductCategories,
@@ -96,4 +178,7 @@ export const actions = {
   fetchSearchResults,
   setSearchResults,
   clearSearchResults,
+  createProduct,
+  fetchUserProducts,
+  deleteUserProduct,
 }

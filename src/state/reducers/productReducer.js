@@ -4,11 +4,13 @@ export const SET_PRODUCT_CATEGORIES = "SET_PRODUCT_CATEGORIES"
 export const SET_FEATURED_PRODUCT = "SET_FEATURED_PRODUCT"
 export const SET_SEARCH_RESULTS = "SET_SEARCH_RESULTS"
 export const CLEAR_SEARCH_RESULTS = "CLEAR_SEARCH_RESULTS"
+export const SET_USER_PRODUCTS = "SET_USER_PRODUCTS"
 
 export const defaultState = {
   productCategories: [],
   featuredProduct: {},
   searchResults: [],
+  userProducts: [],
 }
 
 const reducer = (state = defaultState, action) => {
@@ -37,6 +39,13 @@ const reducer = (state = defaultState, action) => {
         ...state,
         searchResults: [],
       }
+    case SET_USER_PRODUCTS:
+      return {
+        ...state,
+        userProducts: action.payload.userProducts?.map((product) =>
+          snakeToCamelCaseObjectKeys(product),
+        ),
+      }
     default:
       return state
   }
@@ -46,6 +55,7 @@ const selectProductCategories = (state) =>
   state.productReducer.productCategories
 const selectFeaturedProduct = (state) => state.productReducer.featuredProduct
 const selectSearchResults = (state) => state.productReducer.searchResults
+const selectUserProducts = (state) => state.productReducer.userProducts
 
 export default reducer
 
@@ -53,4 +63,5 @@ export const selectors = {
   selectProductCategories,
   selectFeaturedProduct,
   selectSearchResults,
+  selectUserProducts,
 }
