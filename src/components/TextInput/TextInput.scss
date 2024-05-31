@@ -1,6 +1,7 @@
 @use "../../scss/index.scss" as *;
 
-.text-input {
+.text-input,
+.text-input__field {
   $default-text-color: $color-eerie-black;
   $border-color: lighten-3($color-eerie-black);
   $border-hover-color: lighten-2($color-eerie-black);
@@ -20,7 +21,39 @@
     border: 2px solid $border-hover-color;
   }
 
-  &:focus {
+  &:focus,
+  &:focus-within {
     border: 2px solid $border-focus-color;
+  }
+
+  &::placeholder {
+    color: lighten-3($default-text-color);
+  }
+
+  &.has-label {
+    padding: 0;
+    display: flex;
+  }
+
+  &__field {
+    padding: 0;
+    margin: 0 $space-2;
+    flex: 1;
+  }
+
+  &__field,
+  &__field:hover,
+  &__field:focus {
+    border: none;
+  }
+
+  &__label {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: $space-1 $space-2;
+    background-color: lighten-2($color-cerulean-blue);
+    border-radius: 0 8px 8px 0;
+    color: darken-1($color-cerulean-blue);
   }
 }

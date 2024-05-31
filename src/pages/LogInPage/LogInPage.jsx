@@ -62,7 +62,7 @@ const LogInPage = () => {
           />
           <TextInput
             placeholder={"Password"}
-            isPasswordType={true}
+            type="password"
             {...register("password", { required: true })}
           />
           <Button

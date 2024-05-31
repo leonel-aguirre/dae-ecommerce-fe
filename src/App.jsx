@@ -8,10 +8,10 @@ import { PersistGate } from "redux-persist/integration/react"
 import HomePage from "./pages/HomePage/HomePage"
 import LogInPage from "./pages/LogInPage/LogInPage"
 import RegisterPage from "./pages/RegisterPage/RegisterPage"
-
 import reducer from "./state"
 import {
   URL_ADD_PRODUCT_PAGE,
+  URL_EDIT_PRODUCT_PAGE,
   URL_HOME_PAGE,
   URL_LOG_IN_PAGE,
   URL_REGISTER_PAGE,
@@ -21,6 +21,7 @@ import {
 import NavBar from "./components/NavBar/NavBar"
 import SearchPage from "./pages/SearchPage/SearchPage"
 import AddProductPage from "./pages/AddProductPage/AddProductPage"
+import EditProductPage from "./pages/EditProductPage/EditProductPage"
 import UserProductsPage from "./pages/UserProductsPage/UserProductsPage"
 
 const store = configureStore({
@@ -51,6 +52,10 @@ const App = () => {
                 <Route
                   path={URL_ADD_PRODUCT_PAGE}
                   element={<AddProductPage />}
+                />
+                <Route
+                  path={URL_EDIT_PRODUCT_PAGE}
+                  element={<EditProductPage />}
                 />
                 <Route
                   path={URL_USER_PRODUCTS_PAGE}
