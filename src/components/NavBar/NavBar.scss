@@ -16,10 +16,11 @@
   $action-button-text-color: $color-pure-white;
 
   padding: $space-2 $space-3;
-  box-shadow: 0px 1px 5px;
+  border-bottom: 2px solid $color-french-gray;
   display: flex;
   justify-content: space-between;
   align-items: center;
+  background-color: $color-pure-white;
 
   &__search-box-container {
     display: none;

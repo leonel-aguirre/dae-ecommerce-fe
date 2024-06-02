@@ -1,10 +1,13 @@
 @use "../../scss/index" as *;
 
 .home-page {
-  @extend %container;
+  background-color: $color-pure-white;
 
-  padding: $space-6 0;
-  padding-bottom: $space-7;
+  &__container {
+    @extend %container;
+    padding: $space-6 0;
+    padding-bottom: $space-7;
+  }
 
   &__items-by-category-section {
     margin-top: $space-7;

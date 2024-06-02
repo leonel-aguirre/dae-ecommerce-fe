@@ -8,17 +8,19 @@ import { useNavigate } from "react-router-dom"
 
 import { URL_HOME_PAGE } from "../../constants"
 
-const AppLogo = ({ isLarge = false }) => {
+const AppLogo = ({ isLarge = false, isWhite = false }) => {
   const navigate = useNavigate()
 
   return (
     <button className="app-logo" onClick={() => navigate(URL_HOME_PAGE)}>
-      <p className={`app-logo__app-logo-text ${isLarge && "is-large"}`}>
+      <p
+        className={`app-logo__app-logo-text ${isLarge && "is-large"} ${isWhite && "is-white"}`}
+      >
         Spark
         <FontAwesomeIcon
           icon={faBolt}
           size={isLarge ? "3x" : "2x"}
-          className="app-logo__app-logo-icon"
+          className={`app-logo__app-logo-icon ${isWhite && "is-white"}`}
         />
         Market
       </p>
@@ -28,6 +30,7 @@ const AppLogo = ({ isLarge = false }) => {
 
 AppLogo.propTypes = {
   isLarge: PropTypes.bool,
+  isWhite: PropTypes.bool,
 }
 
 export default AppLogo

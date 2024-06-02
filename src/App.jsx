@@ -25,6 +25,7 @@ import AddProductPage from "./pages/AddProductPage/AddProductPage"
 import EditProductPage from "./pages/EditProductPage/EditProductPage"
 import UserProductsPage from "./pages/UserProductsPage/UserProductsPage"
 import CartPage from "./pages/CartPage/CartPage"
+import Footer from "./components/Footer/Footer"
 
 const store = configureStore({
   reducer,
@@ -32,11 +33,12 @@ const store = configureStore({
 
 const persistor = persistStore(store)
 
-const NavBarOutlet = () => {
+const AppWrapper = () => {
   return (
     <>
       <NavBar />
       <Outlet />
+      <Footer />
     </>
   )
 }
@@ -48,7 +50,7 @@ const App = () => {
         <div className="app">
           <BrowserRouter>
             <Routes>
-              <Route element={<NavBarOutlet />}>
+              <Route element={<AppWrapper />}>
                 <Route path={URL_HOME_PAGE} element={<HomePage />} />
                 <Route path={URL_SEARCH_PAGE} element={<SearchPage />} />
                 <Route
