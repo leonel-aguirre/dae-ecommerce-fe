@@ -15,7 +15,7 @@ import { useNavigate } from "react-router-dom"
 import Button from "../Button/Button"
 import { productActions } from "../../state/index"
 
-const { deleteUserProduct } = productActions
+const { deleteUserProduct, addProductToCart } = productActions
 
 const ProductCard = ({ product, isSmall = false, isOwned = false }) => {
   const dispatch = useDispatch()
@@ -37,6 +37,10 @@ const ProductCard = ({ product, isSmall = false, isOwned = false }) => {
 
   const handleEditButton = () => {
     navigate(`/edit-product/${productID}`)
+  }
+
+  const handleAddToCartButton = () => {
+    dispatch(addProductToCart(productID))
   }
 
   return (
@@ -85,7 +89,7 @@ const ProductCard = ({ product, isSmall = false, isOwned = false }) => {
       </div>
       {isOwned ? (
         <>
-          <div className="product-card__add-to-cart-button-wrapper">
+          <div className="product-card__action-button-wrapper">
             <Button
               text={"Delete"}
               icon={faTrash}
@@ -99,8 +103,12 @@ const ProductCard = ({ product, isSmall = false, isOwned = false }) => {
           </div>
         </>
       ) : (
-        <div className="product-card__add-to-cart-button-wrapper">
-          <Button text={"Add to Cart"} icon={faCartShopping} />
+        <div className="product-card__action-button-wrapper">
+          <Button
+            text={"Add to Cart"}
+            icon={faCartShopping}
+            onClick={handleAddToCartButton}
+          />
         </div>
       )}
     </div>

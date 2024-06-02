@@ -2,6 +2,8 @@ import { del, get, post, put } from "../../api"
 import { snakeToCamelCaseObjectKeys } from "../../utils"
 import {
   CLEAR_SEARCH_RESULTS,
+  DECREASE_CART_ITEMS_AMOUNT,
+  INCREASE_CART_ITEMS_AMOUNT,
   SET_CART_ITEMS_AMOUNT,
   SET_PRODUCT_CATEGORIES,
   SET_SEARCH_RESULTS,
@@ -215,6 +217,26 @@ const fetchCartItemsAmount = () => async (dispatch) => {
   }
 }
 
+const addProductToCart = (productID) => async (dispatch) => {
+  try {
+    const { data } = await post(`/cart/add_item`, { product_id: productID })
+
+    if (data?.data !== undefined) {
+      dispatch(increaseCartItemsAmount())
+      return { success: true }
+    } else {
+      return { success: false }
+    }
+  } catch (error) {
+    console.error(error)
+
+    return {
+      success: false,
+      message: "Error while trying to add product to cart.",
+    }
+  }
+}
+
 const setProductCategories = (productCategories) => async (dispatch) => {
   await dispatch({
     type: SET_PRODUCT_CATEGORIES,
@@ -249,6 +271,18 @@ const setCartItemsAmount = (cartItemsAmount) => async (dispatch) => {
   })
 }
 
+const increaseCartItemsAmount = () => async (dispatch) => {
+  await dispatch({
+    type: INCREASE_CART_ITEMS_AMOUNT,
+  })
+}
+
+const decreaseCartItemsAmount = () => async (dispatch) => {
+  await dispatch({
+    type: DECREASE_CART_ITEMS_AMOUNT,
+  })
+}
+
 export const actions = {
   fetchProductCategories,
   fetchFeaturedProduct,
@@ -262,4 +296,5 @@ export const actions = {
   clearSearchResults,
   updateProductByID,
   deleteUserProduct,
+  addProductToCart,
 }

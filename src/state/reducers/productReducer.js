@@ -5,6 +5,8 @@ export const SET_SEARCH_RESULTS = "SET_SEARCH_RESULTS"
 export const CLEAR_SEARCH_RESULTS = "CLEAR_SEARCH_RESULTS"
 export const SET_USER_PRODUCTS = "SET_USER_PRODUCTS"
 export const SET_CART_ITEMS_AMOUNT = "SET_CART_ITEMS_AMOUNT"
+export const INCREASE_CART_ITEMS_AMOUNT = "INCREASE_CART_ITEMS_AMOUNT"
+export const DECREASE_CART_ITEMS_AMOUNT = "DECREASE_CART_ITEMS_AMOUNT"
 
 export const defaultState = {
   productCategories: [],
@@ -43,6 +45,16 @@ const reducer = (state = defaultState, action) => {
       return {
         ...state,
         cartItemsAmount: action.payload.cartItemsAmount,
+      }
+    case INCREASE_CART_ITEMS_AMOUNT:
+      return {
+        ...state,
+        cartItemsAmount: state.cartItemsAmount + 1,
+      }
+    case DECREASE_CART_ITEMS_AMOUNT:
+      return {
+        ...state,
+        cartItemsAmount: state.cartItemsAmount - 1,
       }
     default:
       return state
