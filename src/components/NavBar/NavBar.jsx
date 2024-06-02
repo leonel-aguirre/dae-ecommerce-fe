@@ -5,6 +5,7 @@ import { useSelector, useDispatch } from "react-redux"
 import { useNavigate } from "react-router-dom"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import {
+  faCartShopping,
   faMagnifyingGlass,
   faPlus,
   faRightToBracket,
@@ -18,16 +19,21 @@ import {
   accountActions,
   accountSelectors,
   authActions,
+  productSelectors,
+  productActions,
 } from "../../state"
 import { URL_SEARCH_PAGE } from "../../constants"
 
 const { logOut } = authActions
 const { fetchAccountData } = accountActions
+const { fetchCartItemsAmount } = productActions
 const { selectIsUserAuthenticated } = authSelectors
 const { selectUserFullName } = accountSelectors
+const { selectCartItemsAmount } = productSelectors
 
 const NavBar = () => {
   const dispatch = useDispatch()
+  const cartItemsAmount = useSelector(selectCartItemsAmount)
   const isUserAuthenticated = useSelector(selectIsUserAuthenticated)
   const userFullName = useSelector(selectUserFullName)
   const navigate = useNavigate()
@@ -37,6 +43,7 @@ const NavBar = () => {
   useEffect(() => {
     if (isUserAuthenticated) {
       dispatch(fetchAccountData())
+      dispatch(fetchCartItemsAmount())
     }
   }, [isUserAuthenticated])
 
@@ -46,6 +53,7 @@ const NavBar = () => {
 
   const handleLogOutButton = () => {
     dispatch(logOut())
+    navigate("/")
   }
 
   const handleAddProductButton = () => {
@@ -54,6 +62,10 @@ const NavBar = () => {
 
   const handleUserProductsButton = () => {
     navigate("/user-products")
+  }
+
+  const handleCartButton = () => {
+    navigate("/cart")
   }
 
   const handleSearchButton = (e) => {
@@ -78,6 +90,21 @@ const NavBar = () => {
             !
           </p>
           <div className="nav-bar__action-buttons-wrapper">
+            <button
+              className="nav-bar__user-action-button"
+              onClick={handleCartButton}
+            >
+              <FontAwesomeIcon
+                icon={faCartShopping}
+                className="nav-bar__user-action-button-icon"
+              />
+              {cartItemsAmount > 0 && (
+                <p className="nav-bar__user-action-button-badge">
+                  {cartItemsAmount}
+                </p>
+              )}
+            </button>
+
             <button
               className="nav-bar__user-action-button"
               onClick={handleUserProductsButton}

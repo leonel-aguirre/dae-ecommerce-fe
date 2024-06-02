@@ -11,6 +11,7 @@ import RegisterPage from "./pages/RegisterPage/RegisterPage"
 import reducer from "./state"
 import {
   URL_ADD_PRODUCT_PAGE,
+  URL_CART_PAGE,
   URL_EDIT_PRODUCT_PAGE,
   URL_HOME_PAGE,
   URL_LOG_IN_PAGE,
@@ -23,6 +24,7 @@ import SearchPage from "./pages/SearchPage/SearchPage"
 import AddProductPage from "./pages/AddProductPage/AddProductPage"
 import EditProductPage from "./pages/EditProductPage/EditProductPage"
 import UserProductsPage from "./pages/UserProductsPage/UserProductsPage"
+import CartPage from "./pages/CartPage/CartPage"
 
 const store = configureStore({
   reducer,
@@ -61,6 +63,7 @@ const App = () => {
                   path={URL_USER_PRODUCTS_PAGE}
                   element={<UserProductsPage />}
                 />
+                <Route path={URL_CART_PAGE} element={<CartPage />} />
               </Route>
               <Route path={URL_LOG_IN_PAGE} element={<LogInPage />} />
               <Route path={URL_REGISTER_PAGE} element={<RegisterPage />} />

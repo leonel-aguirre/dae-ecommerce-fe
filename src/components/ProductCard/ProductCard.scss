@@ -12,7 +12,7 @@
   grid-template-areas: ". img img img info info info info info cart cart .";
 
   &.is-small {
-    grid-template-areas: ". img info info info info info info info cart cart .";
+    grid-template-areas: ". img img info info info info info info cart cart .";
   }
 
   &__image-wrapper {
@@ -80,6 +80,8 @@
     display: flex;
     column-gap: $space-1;
     margin-top: $space-3;
+    flex-wrap: wrap;
+    row-gap: $space-1;
   }
 
   &__product-tag {
@@ -112,7 +114,7 @@
     color: darken-1($color-mint-green);
   }
 
-  &__add-to-cart-button-wrapper {
+  &__action-button-wrapper {
     grid-area: cart;
     display: flex;
     flex: 1;

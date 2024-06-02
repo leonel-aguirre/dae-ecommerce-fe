@@ -2,7 +2,10 @@ import { del, get, post, put } from "../../api"
 import { snakeToCamelCaseObjectKeys } from "../../utils"
 import {
   CLEAR_SEARCH_RESULTS,
-  SET_FEATURED_PRODUCT,
+  DECREASE_CART_ITEMS_AMOUNT,
+  INCREASE_CART_ITEMS_AMOUNT,
+  SET_CART_ITEMS,
+  SET_CART_ITEMS_AMOUNT,
   SET_PRODUCT_CATEGORIES,
   SET_SEARCH_RESULTS,
   SET_USER_PRODUCTS,
@@ -26,13 +29,14 @@ const fetchProductCategories = () => async (dispatch) => {
   }
 }
 
-const fetchFeaturedProduct = () => async (dispatch) => {
+const fetchFeaturedProduct = () => async () => {
   try {
     const { data } = await get("/featured/product")
 
     if (data) {
-      await dispatch(setFeaturedProduct(data))
-      return { success: true }
+      return { success: true, data: snakeToCamelCaseObjectKeys(data) }
+    } else {
+      return { success: false, data: {} }
     }
   } catch (error) {
     console.error(error)
@@ -152,8 +156,6 @@ const updateProductByID = (productID, updatedProduct) => async (dispatch) => {
       },
     })
 
-    console.log(data?.data)
-
     if (data?.data && imageFile) {
       const formData = new FormData()
       formData.append("data", imageFile)
@@ -181,8 +183,6 @@ const deleteUserProduct = (productID) => async (dispatch) => {
     const { data } = await del(`/products/${productID}`)
 
     if (data) {
-      console.log("fetchUserProducts")
-
       await dispatch(fetchUserProducts())
       return { success: true }
     }
@@ -196,17 +196,87 @@ const deleteUserProduct = (productID) => async (dispatch) => {
   }
 }
 
+const fetchCartItemsAmount = () => async (dispatch) => {
+  try {
+    const { data } = await get(`/cart/items_amount`)
+
+    if (data?.data !== undefined) {
+      dispatch(setCartItemsAmount(data?.data))
+      return { success: true }
+    } else {
+      return { success: false }
+    }
+  } catch (error) {
+    console.error(error)
+
+    return {
+      success: false,
+      message: "Error while trying to retrieve cart items amount.",
+    }
+  }
+}
+
+const addProductToCart = (productID) => async (dispatch) => {
+  try {
+    const { data } = await post(`/cart/add_item`, { product_id: productID })
+
+    if (data?.data !== undefined) {
+      dispatch(increaseCartItemsAmount())
+      return { success: true }
+    } else {
+      return { success: false }
+    }
+  } catch (error) {
+    console.error(error)
+
+    return {
+      success: false,
+      message: "Error while trying to add product to cart.",
+    }
+  }
+}
+
+const fetchCartItems = () => async (dispatch) => {
+  try {
+    const { data } = await get("/cart/items")
+
+    if (data?.data !== undefined) {
+      await dispatch(setCartItems(data.data))
+      return { success: true }
+    } else {
+      return { success: false }
+    }
+  } catch (error) {
+    console.error(error)
+
+    return {
+      success: false,
+      message: "Error while trying to fetch cart items.",
+    }
+  }
+}
+
+const deleteCartItem = (cartItemID) => async (dispatch) => {
+  try {
+    await del(`/cart/item/${cartItemID}`)
+    await dispatch(decreaseCartItemsAmount())
+    await dispatch(fetchCartItems())
+
+    return { success: true }
+  } catch (error) {
+    console.error(error)
+
+    return {
+      success: false,
+      message: "Error while trying to delete cart item.",
+    }
+  }
+}
+
 const setProductCategories = (productCategories) => async (dispatch) => {
   await dispatch({
     type: SET_PRODUCT_CATEGORIES,
     payload: { productCategories },
-  })
-}
-
-const setFeaturedProduct = (featuredProduct) => async (dispatch) => {
-  await dispatch({
-    type: SET_FEATURED_PRODUCT,
-    payload: { featuredProduct },
   })
 }
 
@@ -230,17 +300,46 @@ const setUserProducts = (userProducts) => async (dispatch) => {
   })
 }
 
+const setCartItemsAmount = (cartItemsAmount) => async (dispatch) => {
+  await dispatch({
+    type: SET_CART_ITEMS_AMOUNT,
+    payload: { cartItemsAmount },
+  })
+}
+
+const increaseCartItemsAmount = () => async (dispatch) => {
+  await dispatch({
+    type: INCREASE_CART_ITEMS_AMOUNT,
+  })
+}
+
+const decreaseCartItemsAmount = () => async (dispatch) => {
+  await dispatch({
+    type: DECREASE_CART_ITEMS_AMOUNT,
+  })
+}
+
+const setCartItems = (cartItems) => async (dispatch) => {
+  await dispatch({
+    type: SET_CART_ITEMS,
+    payload: { cartItems },
+  })
+}
+
 export const actions = {
   fetchProductCategories,
   fetchFeaturedProduct,
   fetchSearchResults,
   fetchUserProducts,
   fetchProductByID,
+  fetchCartItemsAmount,
+  fetchCartItems,
   setProductCategories,
-  setFeaturedProduct,
   setSearchResults,
   createProduct,
   clearSearchResults,
   updateProductByID,
   deleteUserProduct,
+  deleteCartItem,
+  addProductToCart,
 }
