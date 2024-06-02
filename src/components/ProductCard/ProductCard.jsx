@@ -15,9 +15,14 @@ import { useNavigate } from "react-router-dom"
 import Button from "../Button/Button"
 import { productActions } from "../../state/index"
 
-const { deleteUserProduct, addProductToCart } = productActions
+const { deleteUserProduct, addProductToCart, deleteCartItem } = productActions
 
-const ProductCard = ({ product, isSmall = false, isOwned = false }) => {
+const ProductCard = ({
+  product,
+  isSmall = false,
+  type = "TYPE_DEFAULT",
+  cartItemID,
+}) => {
   const dispatch = useDispatch()
   const navigate = useNavigate()
 
@@ -41,6 +46,49 @@ const ProductCard = ({ product, isSmall = false, isOwned = false }) => {
 
   const handleAddToCartButton = () => {
     dispatch(addProductToCart(productID))
+  }
+
+  const handleDeleteFromCartButton = () => {
+    if (cartItemID) {
+      dispatch(deleteCartItem(cartItemID))
+    }
+  }
+
+  const renderButtons = () => {
+    switch (type) {
+      case ProductCard.TYPE_OWNED:
+        return (
+          <>
+            <Button
+              text={"Delete"}
+              icon={faTrash}
+              onClick={handleDeleteButton}
+            />
+            <Button
+              text={"Edit"}
+              icon={faPenToSquare}
+              onClick={handleEditButton}
+            />
+          </>
+        )
+      case ProductCard.TYPE_CART:
+        return (
+          <Button
+            text={"Delete"}
+            icon={faTrash}
+            onClick={handleDeleteFromCartButton}
+          />
+        )
+      case ProductCard.TYPE_DEFAULT:
+      default:
+        return (
+          <Button
+            text={"Add to Cart"}
+            icon={faCartShopping}
+            onClick={handleAddToCartButton}
+          />
+        )
+    }
   }
 
   return (
@@ -87,30 +135,9 @@ const ProductCard = ({ product, isSmall = false, isOwned = false }) => {
           </p>
         </div>
       </div>
-      {isOwned ? (
-        <>
-          <div className="product-card__action-button-wrapper">
-            <Button
-              text={"Delete"}
-              icon={faTrash}
-              onClick={handleDeleteButton}
-            />
-            <Button
-              text={"Edit"}
-              icon={faPenToSquare}
-              onClick={handleEditButton}
-            />
-          </div>
-        </>
-      ) : (
-        <div className="product-card__action-button-wrapper">
-          <Button
-            text={"Add to Cart"}
-            icon={faCartShopping}
-            onClick={handleAddToCartButton}
-          />
-        </div>
-      )}
+      <div className="product-card__action-button-wrapper">
+        {renderButtons()}
+      </div>
     </div>
   )
 }
@@ -118,7 +145,12 @@ const ProductCard = ({ product, isSmall = false, isOwned = false }) => {
 ProductCard.propTypes = {
   product: PropTypes.object.isRequired,
   isSmall: PropTypes.bool,
-  isOwned: PropTypes.bool,
+  type: PropTypes.string,
+  cartItemID: PropTypes.string,
 }
+
+ProductCard.TYPE_DEFAULT = "TYPE_DEFAULT"
+ProductCard.TYPE_OWNED = "TYPE_OWNED"
+ProductCard.TYPE_CART = "TYPE_CART"
 
 export default ProductCard

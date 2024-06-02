@@ -59,7 +59,7 @@ const UserProductsPage = () => {
               key={product.id}
               product={product}
               isSmall={true}
-              isOwned={true}
+              type={ProductCard.TYPE_OWNED}
             />
           ))}
           {userProducts.length === 0 && (

@@ -63,6 +63,10 @@ const NavBar = () => {
     navigate("/user-products")
   }
 
+  const handleCartButton = () => {
+    navigate("/cart")
+  }
+
   const handleSearchButton = (e) => {
     e.preventDefault()
 
@@ -87,7 +91,7 @@ const NavBar = () => {
           <div className="nav-bar__action-buttons-wrapper">
             <button
               className="nav-bar__user-action-button"
-              onClick={handleUserProductsButton}
+              onClick={handleCartButton}
             >
               <FontAwesomeIcon
                 icon={faCartShopping}

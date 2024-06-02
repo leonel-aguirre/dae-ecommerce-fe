@@ -4,6 +4,7 @@ import {
   CLEAR_SEARCH_RESULTS,
   DECREASE_CART_ITEMS_AMOUNT,
   INCREASE_CART_ITEMS_AMOUNT,
+  SET_CART_ITEMS,
   SET_CART_ITEMS_AMOUNT,
   SET_PRODUCT_CATEGORIES,
   SET_SEARCH_RESULTS,
@@ -155,8 +156,6 @@ const updateProductByID = (productID, updatedProduct) => async (dispatch) => {
       },
     })
 
-    console.log(data?.data)
-
     if (data?.data && imageFile) {
       const formData = new FormData()
       formData.append("data", imageFile)
@@ -237,6 +236,43 @@ const addProductToCart = (productID) => async (dispatch) => {
   }
 }
 
+const fetchCartItems = () => async (dispatch) => {
+  try {
+    const { data } = await get("/cart/items")
+
+    if (data?.data !== undefined) {
+      await dispatch(setCartItems(data.data))
+      return { success: true }
+    } else {
+      return { success: false }
+    }
+  } catch (error) {
+    console.error(error)
+
+    return {
+      success: false,
+      message: "Error while trying to fetch cart items.",
+    }
+  }
+}
+
+const deleteCartItem = (cartItemID) => async (dispatch) => {
+  try {
+    await del(`/cart/item/${cartItemID}`)
+    await dispatch(decreaseCartItemsAmount())
+    await dispatch(fetchCartItems())
+
+    return { success: true }
+  } catch (error) {
+    console.error(error)
+
+    return {
+      success: false,
+      message: "Error while trying to delete cart item.",
+    }
+  }
+}
+
 const setProductCategories = (productCategories) => async (dispatch) => {
   await dispatch({
     type: SET_PRODUCT_CATEGORIES,
@@ -283,6 +319,13 @@ const decreaseCartItemsAmount = () => async (dispatch) => {
   })
 }
 
+const setCartItems = (cartItems) => async (dispatch) => {
+  await dispatch({
+    type: SET_CART_ITEMS,
+    payload: { cartItems },
+  })
+}
+
 export const actions = {
   fetchProductCategories,
   fetchFeaturedProduct,
@@ -290,11 +333,13 @@ export const actions = {
   fetchUserProducts,
   fetchProductByID,
   fetchCartItemsAmount,
+  fetchCartItems,
   setProductCategories,
   setSearchResults,
   createProduct,
   clearSearchResults,
   updateProductByID,
   deleteUserProduct,
+  deleteCartItem,
   addProductToCart,
 }
