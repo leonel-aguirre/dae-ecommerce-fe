@@ -2,7 +2,6 @@ import { del, get, post, put } from "../../api"
 import { snakeToCamelCaseObjectKeys } from "../../utils"
 import {
   CLEAR_SEARCH_RESULTS,
-  SET_FEATURED_PRODUCT,
   SET_PRODUCT_CATEGORIES,
   SET_SEARCH_RESULTS,
   SET_USER_PRODUCTS,
@@ -26,13 +25,14 @@ const fetchProductCategories = () => async (dispatch) => {
   }
 }
 
-const fetchFeaturedProduct = () => async (dispatch) => {
+const fetchFeaturedProduct = () => async () => {
   try {
     const { data } = await get("/featured/product")
 
     if (data) {
-      await dispatch(setFeaturedProduct(data))
-      return { success: true }
+      return { success: true, data: snakeToCamelCaseObjectKeys(data) }
+    } else {
+      return { success: false, data: {} }
     }
   } catch (error) {
     console.error(error)
@@ -203,13 +203,6 @@ const setProductCategories = (productCategories) => async (dispatch) => {
   })
 }
 
-const setFeaturedProduct = (featuredProduct) => async (dispatch) => {
-  await dispatch({
-    type: SET_FEATURED_PRODUCT,
-    payload: { featuredProduct },
-  })
-}
-
 const setSearchResults = (searchResults) => async (dispatch) => {
   await dispatch({
     type: SET_SEARCH_RESULTS,
@@ -237,7 +230,6 @@ export const actions = {
   fetchUserProducts,
   fetchProductByID,
   setProductCategories,
-  setFeaturedProduct,
   setSearchResults,
   createProduct,
   clearSearchResults,
