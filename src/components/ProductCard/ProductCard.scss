@@ -9,10 +9,10 @@
   flex-direction: row;
   display: grid;
   grid-template-columns: repeat(12, 1fr);
-  grid-template-areas: ". img img img info info info info info cart cart .";
+  grid-template-areas: ". img img img info info info info info actions actions .";
 
   &.is-small {
-    grid-template-areas: ". img img info info info info info info cart cart .";
+    grid-template-areas: ". img img info info info info info info actions actions .";
   }
 
   &__image-wrapper {
@@ -114,11 +114,12 @@
     color: darken-1($color-mint-green);
   }
 
-  &__action-button-wrapper {
-    grid-area: cart;
+  &__action-buttons-wrapper {
+    grid-area: actions;
     display: flex;
     flex: 1;
     flex-direction: column;
     align-items: flex-end;
+    row-gap: $space-1;
   }
 }

@@ -31,6 +31,10 @@ const CartPage = () => {
 
   const [isLoading, setIsLoading] = useState(false)
 
+  const handlePurchasedItemsButton = () => {
+    navigate("/purchased-items")
+  }
+
   useEffect(() => {
     const triggerFetch = async () => {
       if (isUserAuthenticated) {
@@ -90,6 +94,17 @@ const CartPage = () => {
           <p className="cart-page__header-text">
             Your Cart ({cartItemsAmount} items)
           </p>
+        </div>
+      </section>
+      <section className="cart-page__actions-section">
+        <div className="cart-page__actions-section-container">
+          <div className="cart-page__buttons-wrapper">
+            <Button
+              text={"Purchased Items"}
+              icon={faMoneyBillWave}
+              onClick={handlePurchasedItemsButton}
+            />
+          </div>
         </div>
       </section>
       {renderResults()}

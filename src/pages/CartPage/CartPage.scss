@@ -24,6 +24,25 @@
     font-weight: $font-weight-bold;
   }
 
+  &__actions-section {
+    background-color: $color-platinum-gray;
+  }
+
+  &__actions-section-container {
+    @extend %container;
+
+    padding: $space-1 0;
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+  }
+
+  &__buttons-wrapper {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    grid-column: 2 / span 10;
+  }
+
   &__products-list-section {
     @extend %container;
 

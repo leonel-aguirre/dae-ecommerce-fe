@@ -7,7 +7,6 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import {
   faCartShopping,
   faMagnifyingGlass,
-  faPlus,
   faRightToBracket,
   faTableList,
   faUserLargeSlash,
@@ -54,10 +53,6 @@ const NavBar = () => {
   const handleLogOutButton = () => {
     dispatch(logOut())
     navigate("/")
-  }
-
-  const handleAddProductButton = () => {
-    navigate("/add-product")
   }
 
   const handleUserProductsButton = () => {
@@ -111,16 +106,6 @@ const NavBar = () => {
             >
               <FontAwesomeIcon
                 icon={faTableList}
-                className="nav-bar__user-action-button-icon"
-              />
-            </button>
-
-            <button
-              className="nav-bar__user-action-button"
-              onClick={handleAddProductButton}
-            >
-              <FontAwesomeIcon
-                icon={faPlus}
                 className="nav-bar__user-action-button-icon"
               />
             </button>

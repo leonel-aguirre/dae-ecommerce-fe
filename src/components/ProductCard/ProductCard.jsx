@@ -138,7 +138,7 @@ const ProductCard = ({
           </p>
         </div>
       </div>
-      <div className="product-card__action-button-wrapper">
+      <div className="product-card__action-buttons-wrapper">
         {renderButtons()}
       </div>
     </div>

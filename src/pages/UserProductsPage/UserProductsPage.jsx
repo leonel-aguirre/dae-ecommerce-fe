@@ -3,7 +3,7 @@ import "./UserProductsPage.scss"
 import React, { useEffect, useState } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import { useNavigate } from "react-router-dom"
-import { faCircleNotch } from "@fortawesome/free-solid-svg-icons"
+import { faAdd, faCircleNotch } from "@fortawesome/free-solid-svg-icons"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 
 import ProductCard from "../../components/ProductCard/ProductCard"
@@ -13,6 +13,7 @@ import {
   productSelectors,
 } from "../../state/index"
 import { URL_LOG_IN_PAGE } from "../../constants"
+import Button from "../../components/Button/Button"
 
 const { fetchUserProducts } = productActions
 const { selectUserProducts } = productSelectors
@@ -25,6 +26,10 @@ const UserProductsPage = () => {
   const navigate = useNavigate()
 
   const [isLoading, setIsLoading] = useState(false)
+
+  const handleAddProductButton = () => {
+    navigate("/add-product")
+  }
 
   useEffect(() => {
     const triggerFetch = async () => {
@@ -78,6 +83,17 @@ const UserProductsPage = () => {
       <section className="user-products-page__header-section">
         <div className="user-products-page__header-section-container">
           <p className="user-products-page__header-text">Your Products</p>
+        </div>
+      </section>
+      <section className="user-products-page__actions-section">
+        <div className="user-products-page__actions-section-container">
+          <div className="user-products-page__buttons-wrapper">
+            <Button
+              text={"Add Product"}
+              icon={faAdd}
+              onClick={handleAddProductButton}
+            />
+          </div>
         </div>
       </section>
       {renderResults()}
