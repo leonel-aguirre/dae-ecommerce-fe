@@ -141,7 +141,7 @@ const fetchUserProducts = () => async (dispatch) => {
   }
 }
 
-const updateProductByID = (productID, updatedProduct) => async (dispatch) => {
+const updateProductByID = (productID, updatedProduct) => async () => {
   try {
     const { title, description, currentPrice, previousPrice, tags, imageFile } =
       updatedProduct
@@ -298,6 +298,28 @@ const fetchPurchasedItems = () => async () => {
   }
 }
 
+const purchaseItems = (cartItemsIDs) => async () => {
+  try {
+    const { data } = await post("/cart/purchase-items", {
+      cart_item_ids: cartItemsIDs,
+    })
+
+    if (data?.data !== undefined) {
+      return { success: true }
+    } else {
+      return { success: false }
+    }
+  } catch (error) {
+    console.error(error)
+
+    return {
+      success: false,
+      data: {},
+      message: "Error while trying to purchase items.",
+    }
+  }
+}
+
 const setProductCategories = (productCategories) => async (dispatch) => {
   await dispatch({
     type: SET_PRODUCT_CATEGORIES,
@@ -362,10 +384,12 @@ export const actions = {
   fetchPurchasedItems,
   setProductCategories,
   setSearchResults,
+  setCartItemsAmount,
   createProduct,
   clearSearchResults,
   updateProductByID,
   deleteUserProduct,
   deleteCartItem,
   addProductToCart,
+  purchaseItems,
 }

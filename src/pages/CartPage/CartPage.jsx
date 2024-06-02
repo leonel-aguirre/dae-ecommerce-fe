@@ -18,7 +18,7 @@ import {
 import { URL_LOG_IN_PAGE } from "../../constants"
 import Button from "../../components/Button/Button"
 
-const { fetchCartItems } = productActions
+const { fetchCartItems, purchaseItems, setCartItemsAmount } = productActions
 const { selectIsUserAuthenticated } = authSelectors
 const { selectCartItems, selectCartItemsAmount } = productSelectors
 
@@ -33,6 +33,23 @@ const CartPage = () => {
 
   const handlePurchasedItemsButton = () => {
     navigate("/purchased-items")
+  }
+
+  const handleProceedToCheckoutButton = async () => {
+    const cartItemsIDs = cartItems.map(({ id }) => id)
+
+    setIsLoading(true)
+
+    try {
+      const { success } = await dispatch(purchaseItems(cartItemsIDs))
+
+      if (success) {
+        dispatch(setCartItemsAmount(0))
+        navigate("/purchased-items")
+      }
+    } finally {
+      setIsLoading(false)
+    }
   }
 
   useEffect(() => {
@@ -122,7 +139,12 @@ const CartPage = () => {
                 )
                 .toFixed(2)}
             </p>
-            <Button text={"Proceed to Checkout"} icon={faMoneyBillWave} />
+            <Button
+              text={"Proceed to Checkout"}
+              icon={faMoneyBillWave}
+              isLoading={isLoading}
+              onClick={handleProceedToCheckoutButton}
+            />
           </div>
         </section>
       )}
