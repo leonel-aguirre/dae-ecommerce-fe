@@ -122,4 +122,25 @@
     align-items: flex-end;
     row-gap: $space-1;
   }
+
+  &__purchased-date-wrapper {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: flex-end;
+  }
+
+  &__purchased-date-label {
+    @extend %body-sans;
+
+    font-weight: $font-weight-medium;
+  }
+
+  &__purchased-date-text {
+    @extend %body-sans;
+
+    color: $color-dogwood-rose;
+    font-weight: $font-weight-bold;
+  }
 }

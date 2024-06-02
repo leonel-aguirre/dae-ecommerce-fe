@@ -15,6 +15,7 @@ import {
   URL_EDIT_PRODUCT_PAGE,
   URL_HOME_PAGE,
   URL_LOG_IN_PAGE,
+  URL_PURCHASED_ITEMS_PAGE,
   URL_REGISTER_PAGE,
   URL_SEARCH_PAGE,
   URL_USER_PRODUCTS_PAGE,
@@ -26,6 +27,7 @@ import EditProductPage from "./pages/EditProductPage/EditProductPage"
 import UserProductsPage from "./pages/UserProductsPage/UserProductsPage"
 import CartPage from "./pages/CartPage/CartPage"
 import Footer from "./components/Footer/Footer"
+import PurchasedItemsPage from "./pages/PurchasedItemsPage/PurchasedItemsPage"
 
 const store = configureStore({
   reducer,
@@ -66,6 +68,10 @@ const App = () => {
                   element={<UserProductsPage />}
                 />
                 <Route path={URL_CART_PAGE} element={<CartPage />} />
+                <Route
+                  path={URL_PURCHASED_ITEMS_PAGE}
+                  element={<PurchasedItemsPage />}
+                />
               </Route>
               <Route path={URL_LOG_IN_PAGE} element={<LogInPage />} />
               <Route path={URL_REGISTER_PAGE} element={<RegisterPage />} />

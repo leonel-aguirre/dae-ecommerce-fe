@@ -23,6 +23,7 @@ const ProductCard = ({
   isSmall = false,
   type = "TYPE_DEFAULT",
   cartItemID,
+  purchaseDate,
 }) => {
   const isUserAuthenticated = useSelector(selectIsUserAuthenticated)
   const dispatch = useDispatch()
@@ -57,6 +58,25 @@ const ProductCard = ({
   }
 
   const renderButtons = () => {
+    let formattedDate
+
+    if (purchaseDate) {
+      const timestamp = purchaseDate
+      const date = new Date(timestamp)
+
+      const options = {
+        timeZone: "America/Mexico_City",
+        year: "2-digit",
+        month: "2-digit",
+        day: "2-digit",
+        hour: "2-digit",
+        minute: "2-digit",
+        hour12: true,
+      }
+
+      formattedDate = new Intl.DateTimeFormat("en-US", options).format(date)
+    }
+
     switch (type) {
       case ProductCard.TYPE_OWNED:
         return (
@@ -80,6 +100,13 @@ const ProductCard = ({
             icon={faTrash}
             onClick={handleDeleteFromCartButton}
           />
+        )
+      case ProductCard.TYPE_PURCHASED:
+        return (
+          <div className="product-card__purchased-date-wrapper">
+            <p className="product-card__purchased-date-label">Purchased On</p>
+            <p className="product-card__purchased-date-text">{formattedDate}</p>
+          </div>
         )
       case ProductCard.TYPE_DEFAULT:
       default:
@@ -127,16 +154,18 @@ const ProductCard = ({
             )
           })}
         </ul>
-        <div className="product-card__product-pricing">
-          {shouldShowPreviousPrice && (
-            <s className="product-card__product-previous-price">
-              $ {productPreviousPrice}
-            </s>
-          )}
-          <p className="product-card__product-current-price">
-            $ {productCurrentPrice}
-          </p>
-        </div>
+        {type !== ProductCard.TYPE_PURCHASED && (
+          <div className="product-card__product-pricing">
+            {shouldShowPreviousPrice && (
+              <s className="product-card__product-previous-price">
+                $ {productPreviousPrice}
+              </s>
+            )}
+            <p className="product-card__product-current-price">
+              $ {productCurrentPrice}
+            </p>
+          </div>
+        )}
       </div>
       <div className="product-card__action-buttons-wrapper">
         {renderButtons()}
@@ -150,10 +179,12 @@ ProductCard.propTypes = {
   isSmall: PropTypes.bool,
   type: PropTypes.string,
   cartItemID: PropTypes.string,
+  purchaseDate: PropTypes.string,
 }
 
 ProductCard.TYPE_DEFAULT = "TYPE_DEFAULT"
 ProductCard.TYPE_OWNED = "TYPE_OWNED"
 ProductCard.TYPE_CART = "TYPE_CART"
+ProductCard.TYPE_PURCHASED = "TYPE_PURCHASED"
 
 export default ProductCard

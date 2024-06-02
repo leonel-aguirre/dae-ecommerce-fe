@@ -273,6 +273,31 @@ const deleteCartItem = (cartItemID) => async (dispatch) => {
   }
 }
 
+const fetchPurchasedItems = () => async () => {
+  try {
+    const { data } = await get("/cart/purchased-items")
+
+    if (data?.data !== undefined) {
+      return {
+        success: true,
+        data: data?.data.map((purchasedItem) =>
+          snakeToCamelCaseObjectKeys(purchasedItem),
+        ),
+      }
+    } else {
+      return { success: false, data: {} }
+    }
+  } catch (error) {
+    console.error(error)
+
+    return {
+      success: false,
+      data: {},
+      message: "Error while trying to retrieve purchased items.",
+    }
+  }
+}
+
 const setProductCategories = (productCategories) => async (dispatch) => {
   await dispatch({
     type: SET_PRODUCT_CATEGORIES,
@@ -334,6 +359,7 @@ export const actions = {
   fetchProductByID,
   fetchCartItemsAmount,
   fetchCartItems,
+  fetchPurchasedItems,
   setProductCategories,
   setSearchResults,
   createProduct,
