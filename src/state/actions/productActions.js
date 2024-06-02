@@ -2,6 +2,7 @@ import { del, get, post, put } from "../../api"
 import { snakeToCamelCaseObjectKeys } from "../../utils"
 import {
   CLEAR_SEARCH_RESULTS,
+  SET_CART_ITEMS_AMOUNT,
   SET_PRODUCT_CATEGORIES,
   SET_SEARCH_RESULTS,
   SET_USER_PRODUCTS,
@@ -181,8 +182,6 @@ const deleteUserProduct = (productID) => async (dispatch) => {
     const { data } = await del(`/products/${productID}`)
 
     if (data) {
-      console.log("fetchUserProducts")
-
       await dispatch(fetchUserProducts())
       return { success: true }
     }
@@ -192,6 +191,26 @@ const deleteUserProduct = (productID) => async (dispatch) => {
     return {
       success: false,
       message: "Error while trying to delete user product.",
+    }
+  }
+}
+
+const fetchCartItemsAmount = () => async (dispatch) => {
+  try {
+    const { data } = await get(`/cart/items_amount`)
+
+    if (data?.data !== undefined) {
+      dispatch(setCartItemsAmount(data?.data))
+      return { success: true }
+    } else {
+      return { success: false }
+    }
+  } catch (error) {
+    console.error(error)
+
+    return {
+      success: false,
+      message: "Error while trying to retrieve cart items amount.",
     }
   }
 }
@@ -223,12 +242,20 @@ const setUserProducts = (userProducts) => async (dispatch) => {
   })
 }
 
+const setCartItemsAmount = (cartItemsAmount) => async (dispatch) => {
+  await dispatch({
+    type: SET_CART_ITEMS_AMOUNT,
+    payload: { cartItemsAmount },
+  })
+}
+
 export const actions = {
   fetchProductCategories,
   fetchFeaturedProduct,
   fetchSearchResults,
   fetchUserProducts,
   fetchProductByID,
+  fetchCartItemsAmount,
   setProductCategories,
   setSearchResults,
   createProduct,
