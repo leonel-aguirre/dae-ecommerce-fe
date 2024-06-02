@@ -80,6 +80,8 @@
     display: flex;
     column-gap: $space-1;
     margin-top: $space-3;
+    flex-wrap: wrap;
+    row-gap: $space-1;
   }
 
   &__product-tag {

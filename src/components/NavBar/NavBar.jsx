@@ -53,6 +53,7 @@ const NavBar = () => {
 
   const handleLogOutButton = () => {
     dispatch(logOut())
+    navigate("/")
   }
 
   const handleAddProductButton = () => {

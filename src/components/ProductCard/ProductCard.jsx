@@ -8,14 +8,15 @@ import {
   faPenToSquare,
   faTrash,
 } from "@fortawesome/free-solid-svg-icons"
-import { useDispatch } from "react-redux"
+import { useDispatch, useSelector } from "react-redux"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { useNavigate } from "react-router-dom"
 
 import Button from "../Button/Button"
-import { productActions } from "../../state/index"
+import { authSelectors, productActions } from "../../state/index"
 
 const { deleteUserProduct, addProductToCart, deleteCartItem } = productActions
+const { selectIsUserAuthenticated } = authSelectors
 
 const ProductCard = ({
   product,
@@ -23,6 +24,7 @@ const ProductCard = ({
   type = "TYPE_DEFAULT",
   cartItemID,
 }) => {
+  const isUserAuthenticated = useSelector(selectIsUserAuthenticated)
   const dispatch = useDispatch()
   const navigate = useNavigate()
 
@@ -86,6 +88,7 @@ const ProductCard = ({
             text={"Add to Cart"}
             icon={faCartShopping}
             onClick={handleAddToCartButton}
+            isDisabled={!isUserAuthenticated}
           />
         )
     }
