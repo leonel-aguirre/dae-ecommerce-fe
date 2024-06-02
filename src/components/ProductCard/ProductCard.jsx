@@ -6,6 +6,7 @@ import {
   faCartShopping,
   faImage,
   faPenToSquare,
+  faStar,
   faTrash,
 } from "@fortawesome/free-solid-svg-icons"
 import { useDispatch, useSelector } from "react-redux"
@@ -13,10 +14,16 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { useNavigate } from "react-router-dom"
 
 import Button from "../Button/Button"
-import { authSelectors, productActions } from "../../state/index"
+import {
+  authSelectors,
+  productActions,
+  productSelectors,
+} from "../../state/index"
+import ProductRating from "../ProductRating/ProductRating"
 
 const { deleteUserProduct, addProductToCart, deleteCartItem } = productActions
 const { selectIsUserAuthenticated } = authSelectors
+const { selectUserProductRatings } = productSelectors
 
 const ProductCard = ({
   product,
@@ -25,6 +32,7 @@ const ProductCard = ({
   cartItemID,
   purchaseDate,
 }) => {
+  const userProductRatings = useSelector(selectUserProductRatings)
   const isUserAuthenticated = useSelector(selectIsUserAuthenticated)
   const dispatch = useDispatch()
   const navigate = useNavigate()
@@ -37,6 +45,9 @@ const ProductCard = ({
   const productPreviousPrice = product?.previousPrice
   const productID = product?.id
 
+  const [productRating] = userProductRatings.filter(
+    (productRating) => productRating.productId === productID,
+  )
   const shouldShowPreviousPrice = productCurrentPrice < productPreviousPrice
 
   const handleDeleteButton = () => {
@@ -103,10 +114,28 @@ const ProductCard = ({
         )
       case ProductCard.TYPE_PURCHASED:
         return (
-          <div className="product-card__purchased-date-wrapper">
-            <p className="product-card__purchased-date-label">Purchased On</p>
-            <p className="product-card__purchased-date-text">{formattedDate}</p>
-          </div>
+          <>
+            {productRating ? (
+              <div className="product-card__product-rating-wrapper">
+                <p className="product-card__product-rating-label">
+                  Your Rating
+                </p>
+                <ProductRating value={productRating?.rating} />
+              </div>
+            ) : (
+              <Button
+                text={"Rate this Item"}
+                icon={faStar}
+                onClick={handleDeleteFromCartButton}
+              />
+            )}
+            <div className="product-card__purchased-date-wrapper">
+              <p className="product-card__purchased-date-label">Purchased On</p>
+              <p className="product-card__purchased-date-text">
+                {formattedDate}
+              </p>
+            </div>
+          </>
         )
       case ProductCard.TYPE_DEFAULT:
       default:

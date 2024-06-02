@@ -9,6 +9,7 @@ import {
   SET_PRODUCT_CATEGORIES,
   SET_SEARCH_RESULTS,
   SET_USER_PRODUCTS,
+  SET_USER_PRODUCT_RATINGS,
 } from "../reducers/productReducer"
 
 const fetchProductCategories = () => async (dispatch) => {
@@ -320,6 +321,30 @@ const purchaseItems = (cartItemsIDs) => async () => {
   }
 }
 
+const fetchUserProductRatings = () => async (dispatch) => {
+  try {
+    const { data } = await get("/product/user_ratings")
+
+    if (data?.data !== undefined) {
+      dispatch(setUserProductRatings(data?.data))
+
+      return {
+        success: true,
+      }
+    } else {
+      return { success: false }
+    }
+  } catch (error) {
+    console.error(error)
+
+    return {
+      success: false,
+      data: {},
+      message: "Error while trying to retrieve user product ratings.",
+    }
+  }
+}
+
 const setProductCategories = (productCategories) => async (dispatch) => {
   await dispatch({
     type: SET_PRODUCT_CATEGORIES,
@@ -373,6 +398,13 @@ const setCartItems = (cartItems) => async (dispatch) => {
   })
 }
 
+const setUserProductRatings = (userProductRatings) => async (dispatch) => {
+  await dispatch({
+    type: SET_USER_PRODUCT_RATINGS,
+    payload: { userProductRatings },
+  })
+}
+
 export const actions = {
   fetchProductCategories,
   fetchFeaturedProduct,
@@ -382,6 +414,7 @@ export const actions = {
   fetchCartItemsAmount,
   fetchCartItems,
   fetchPurchasedItems,
+  fetchUserProductRatings,
   setProductCategories,
   setSearchResults,
   setCartItemsAmount,

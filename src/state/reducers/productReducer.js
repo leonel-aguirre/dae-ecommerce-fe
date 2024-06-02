@@ -8,12 +8,14 @@ export const SET_CART_ITEMS = "SET_CART_ITEMS"
 export const SET_CART_ITEMS_AMOUNT = "SET_CART_ITEMS_AMOUNT"
 export const INCREASE_CART_ITEMS_AMOUNT = "INCREASE_CART_ITEMS_AMOUNT"
 export const DECREASE_CART_ITEMS_AMOUNT = "DECREASE_CART_ITEMS_AMOUNT"
+export const SET_USER_PRODUCT_RATINGS = "SET_USER_PRODUCT_RATINGS"
 
 export const defaultState = {
   productCategories: [],
   searchResults: [],
   userProducts: [],
   cartItems: [],
+  userProductRatings: [],
   cartItemsAmount: 0,
 }
 
@@ -65,6 +67,13 @@ const reducer = (state = defaultState, action) => {
         ...state,
         cartItemsAmount: state.cartItemsAmount - 1,
       }
+    case SET_USER_PRODUCT_RATINGS:
+      return {
+        ...state,
+        userProductRatings: action.payload.userProductRatings?.map((product) =>
+          snakeToCamelCaseObjectKeys(product),
+        ),
+      }
     default:
       return state
   }
@@ -76,6 +85,8 @@ const selectSearchResults = (state) => state.productReducer.searchResults
 const selectUserProducts = (state) => state.productReducer.userProducts
 const selectCartItems = (state) => state.productReducer.cartItems
 const selectCartItemsAmount = (state) => state.productReducer.cartItemsAmount
+const selectUserProductRatings = (state) =>
+  state.productReducer.userProductRatings
 
 export default reducer
 
@@ -85,4 +96,5 @@ export const selectors = {
   selectUserProducts,
   selectCartItems,
   selectCartItemsAmount,
+  selectUserProductRatings,
 }

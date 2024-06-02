@@ -11,7 +11,7 @@ import { URL_LOG_IN_PAGE } from "../../constants"
 import { authSelectors, productActions } from "../../state"
 
 const { selectIsUserAuthenticated } = authSelectors
-const { fetchPurchasedItems } = productActions
+const { fetchPurchasedItems, fetchUserProductRatings } = productActions
 
 const PurchasedItemsPage = () => {
   const isUserAuthenticated = useSelector(selectIsUserAuthenticated)
@@ -28,6 +28,7 @@ const PurchasedItemsPage = () => {
 
         try {
           const { success, data } = await dispatch(fetchPurchasedItems())
+          await dispatch(fetchUserProductRatings())
 
           if (success) {
             setPurchasedItems(data)
