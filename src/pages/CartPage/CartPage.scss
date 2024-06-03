@@ -1,0 +1,124 @@
+@use "../../scss/index" as *;
+
+.cart-page {
+  padding-bottom: $space-7;
+  background-color: $color-pure-white;
+
+  &__header-section {
+    background-color: $color-mint-green;
+  }
+
+  &__header-section-container {
+    @extend %container;
+
+    padding: $space-4;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  &__header-text {
+    @extend %h4-sans;
+
+    color: $color-pure-white;
+    font-weight: $font-weight-bold;
+  }
+
+  &__actions-section {
+    background-color: $color-platinum-gray;
+  }
+
+  &__actions-section-container {
+    @extend %container;
+
+    padding: $space-1 0;
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+  }
+
+  &__buttons-wrapper {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    grid-column: 2 / span 10;
+  }
+
+  &__products-list-section {
+    @extend %container;
+
+    display: flex;
+    flex-direction: column;
+    row-gap: $space-5;
+    margin-top: $space-5;
+  }
+
+  &__no-results-text {
+    @extend %h4-sans;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: $font-weight-semibold;
+  }
+
+  &__no-results-icon {
+    @extend %h2-sans;
+
+    margin-right: $space-2;
+  }
+
+  &__loader-container {
+    display: flex;
+    justify-content: center;
+  }
+
+  &__loader-icon {
+    font-size: 40px;
+    color: $color-gunmetal-gray;
+  }
+
+  &__order-total-section {
+    @extend %container;
+
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    grid-template-areas: ". . . . . . . . total total total .";
+    margin-top: $space-3;
+  }
+
+  &__order-total-content {
+    grid-area: total;
+
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+  }
+
+  &__order-total-text {
+    @extend %h4-sans;
+
+    font-weight: $font-weight-bold;
+  }
+
+  &__order-total-value {
+    @extend %h4-sans;
+
+    font-weight: $font-weight-bold;
+    color: darken-1($color-mint-green);
+
+    margin-bottom: $space-1;
+  }
+
+  &__item-divider-wrapper {
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+  }
+
+  &__item-divider {
+    border-bottom: 3px solid $color-platinum-gray;
+    display: flex;
+    width: 100%;
+    margin: 0 auto;
+    grid-column: 3 / span 8;
+  }
+}

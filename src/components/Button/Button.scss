@@ -1,0 +1,44 @@
+@use "../../scss/index.scss" as *;
+
+.button {
+  $border-color: lighten-1($color-cerulean-blue);
+  $background-color: lighten-1($color-cerulean-blue);
+  $border-hover-color: lighten-2($color-cerulean-blue);
+  $background-hover-color: lighten-2($color-cerulean-blue);
+  $border-active-color: lighten-1($color-cerulean-blue);
+  $background-active-color: lighten-1($color-cerulean-blue);
+  $border-disabled-color: darken-1($color-platinum-gray);
+  $background-disabled-color: darken-1($color-platinum-gray);
+  $text-color: $color-pure-white;
+
+  @extend %body-sans;
+
+  appearance: none;
+  border-radius: 10px;
+  padding: $space-1 $space-2;
+  border: 2px solid $border-color;
+  background-color: $background-color;
+  color: $text-color;
+  font-weight: $font-weight-medium;
+  cursor: pointer;
+
+  &:hover {
+    border: 2px solid $border-hover-color;
+    background-color: $background-hover-color;
+  }
+
+  &:active {
+    border: 2px solid $border-active-color;
+    background-color: $background-active-color;
+  }
+
+  &:disabled {
+    cursor: not-allowed;
+    border: 2px solid $border-disabled-color;
+    background-color: $background-disabled-color;
+  }
+
+  &__icon {
+    margin-right: $space-1;
+  }
+}

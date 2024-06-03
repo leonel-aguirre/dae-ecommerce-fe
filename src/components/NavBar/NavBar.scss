@@ -1,0 +1,155 @@
+@use "../../scss/index" as *;
+
+.nav-bar {
+  $app-logo-icon-color: $color-cerulean-blue;
+  $app-logo-text-color: $color-eerie-black;
+  $log-in-button-text-color: $color-eerie-black;
+  $log-in-button-text-hover-color: $color-cerulean-blue;
+  $search-box-border-color: $color-platinum-gray;
+  $search-box-icon-color: $color-eerie-black;
+  $search-box-icon-hover-color: $color-cerulean-blue;
+  $search-box-button-background-color: lighten-2($color-platinum-gray);
+  $user-first-name-text-color: $color-cerulean-blue;
+  $action-button-color: $color-cerulean-blue;
+  $action-button-hover-color: lighten-2($color-cerulean-blue);
+  $action-button-active-color: lighten-1($color-cerulean-blue);
+  $action-button-text-color: $color-pure-white;
+
+  padding: $space-2 $space-3;
+  border-bottom: 2px solid $color-french-gray;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: $color-pure-white;
+
+  &__search-box-container {
+    display: none;
+
+    @include breakpoint-min(bp(small)) {
+      display: flex;
+      flex-direction: row;
+    }
+  }
+
+  &__search-box {
+    @extend %body-sans;
+
+    appearance: none;
+    border: none;
+    background: none;
+    border-radius: 10px 0 0 10px;
+    padding: $space-2 $space-2;
+    border: 1px solid $search-box-border-color;
+    height: $space-4;
+    font-weight: $font-weight-medium;
+  }
+
+  &__search-box-button {
+    appearance: none;
+    border: none;
+    background: $search-box-button-background-color;
+    border: 1px solid $search-box-border-color;
+    border-left: none;
+    border-radius: 0 10px 10px 0;
+    padding: 0 $space-1;
+    color: $search-box-icon-color;
+    transition: 0.25s ease color;
+    cursor: pointer;
+
+    &:hover,
+    &:active {
+      color: $search-box-icon-hover-color;
+    }
+  }
+
+  &__log-in-button {
+    background: none;
+    appearance: none;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+  }
+
+  &__log-in-button-text {
+    @extend %body-sans;
+
+    font-weight: $font-weight-bold;
+    color: $log-in-button-text-color;
+    transition: 0.25s ease color;
+
+    &:hover {
+      color: $log-in-button-text-hover-color;
+    }
+  }
+
+  &__log-in-button-icon {
+    margin-left: $space-1;
+  }
+
+  &__user-content {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    column-gap: $space-2;
+  }
+
+  &__user-name-greeting {
+    @extend %body-sans;
+
+    font-weight: $font-weight-bold;
+  }
+
+  &__user-first-name {
+    color: $user-first-name-text-color;
+  }
+
+  &__action-buttons-wrapper {
+    display: flex;
+    flex-direction: row;
+    column-gap: $space-1;
+  }
+
+  &__user-action-button {
+    appearance: none;
+    border: none;
+    background-color: $action-button-color;
+    color: $action-button-text-color;
+    border-radius: 10px;
+    width: $space-4;
+    height: $space-4;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+
+    &:hover {
+      background-color: $action-button-hover-color;
+    }
+
+    &:active {
+      background-color: $action-button-active-color;
+    }
+  }
+
+  &__user-action-button-badge {
+    position: absolute;
+    background: $color-dogwood-rose;
+    transform: translate(12px, -16px);
+    text-align: right;
+    font-size: 8px;
+    border-radius: 8px;
+    padding: 3px 6px;
+    color: $color-pure-white;
+    font-weight: $font-weight-bold;
+  }
+
+  &__user-action-button-icon {
+    &:hover {
+      -webkit-animation: fa-shake 2s 1 linear;
+      -moz-animation: fa-shake 2s 1 linear;
+      -o-animation: fa-shake 2s 1 linear;
+      animation: fa-shake 2s 1 linear;
+    }
+  }
+}

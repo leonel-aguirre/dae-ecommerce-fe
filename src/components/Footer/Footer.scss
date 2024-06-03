@@ -1,0 +1,27 @@
+@use "../../scss/index" as *;
+
+.footer {
+  background-color: $color-platinum-gray;
+
+  &__container {
+    @extend %container;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: $space-4 0;
+    align-items: center;
+  }
+
+  &__bottom-text {
+    @extend %body-small-sans;
+
+    margin-top: $space-2;
+    font-weight: $font-weight-regular;
+  }
+
+  &__anchor {
+    color: $color-cerulean-blue;
+    font-weight: $font-weight-semibold;
+  }
+}

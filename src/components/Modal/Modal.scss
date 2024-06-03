@@ -1,0 +1,49 @@
+@use "../../scss/index" as *;
+
+.modal {
+  position: fixed;
+  width: 100vw;
+  height: 100vh;
+  z-index: 1000;
+  top: 0;
+  left: 0;
+  background: transparentize($color-platinum-gray, 0.3);
+  display: flex;
+  align-items: center;
+  backdrop-filter: blur(10px);
+
+  &__container {
+    max-width: 600px;
+    background: $color-pure-white;
+    margin: 0 auto;
+    padding: $space-1;
+    border: 2px solid $color-platinum-gray;
+    border-radius: 10px;
+  }
+
+  &__close-button-wrapper {
+    display: flex;
+    justify-content: flex-end;
+  }
+
+  &__close-button {
+    appearance: none;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    margin-right: $space-1;
+
+    &:hover {
+      color: darken-1($color-dogwood-rose);
+    }
+
+    &:active {
+      color: $color-dogwood-rose;
+    }
+  }
+
+  &__content {
+    padding: $space-4;
+  }
+}

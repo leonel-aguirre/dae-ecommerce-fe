@@ -1,0 +1,36 @@
+@use "../../../scss/index" as *;
+
+.product-rating-form {
+  &__title {
+    @extend %h3-sans;
+
+    @include gradient-text($color-cerulean-blue);
+
+    font-weight: $font-weight-bold;
+  }
+
+  &__sub-title {
+    @extend %body-sans;
+
+    margin-top: $space-1;
+    color: $color-eerie-black;
+    font-weight: $font-weight-bold;
+  }
+
+  &__product-rating-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: $space-4;
+  }
+
+  &__text-field-wrapper {
+    margin-top: $space-3;
+  }
+
+  &__submit-button-wrapper {
+    display: flex;
+    margin-top: $space-1;
+    flex-direction: column;
+  }
+}

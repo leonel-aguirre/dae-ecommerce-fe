@@ -1,0 +1,120 @@
+@use "../../scss/index" as *;
+
+.home-page {
+  background-color: $color-pure-white;
+
+  &__container {
+    @extend %container;
+
+    padding: $space-6 0;
+    padding-bottom: $space-7;
+    display: flex;
+    flex-direction: column;
+    row-gap: $space-7;
+  }
+
+  &__featured-section-heading {
+    @extend %h3-sans;
+
+    color: $color-space-gray;
+  }
+
+  &__featured-product-card {
+    margin-top: $space-4;
+  }
+
+  &__section-heading {
+    @extend %h2-sans;
+
+    color: $color-space-gray;
+  }
+
+  &__section-heading-highlight {
+    color: $color-cerulean-blue;
+  }
+
+  &__section-paragraph {
+    @extend %body-sans;
+
+    font-weight: $font-weight-bold;
+    margin-top: $space-4;
+    color: $color-space-gray;
+  }
+
+  &__categories-list {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    row-gap: $space-1;
+    column-gap: $space-1;
+    justify-content: center;
+    margin-top: $space-3;
+  }
+
+  &__categories-list-item {
+    display: flex;
+    flex-direction: row;
+  }
+
+  &__category-button {
+    @extend %body-sans;
+
+    appearance: none;
+    border: none;
+    background: none;
+    cursor: pointer;
+    color: $color-pure-white;
+    font-weight: $font-weight-medium;
+    padding: $space-1 $space-2;
+    border-radius: 10px;
+    text-wrap: nowrap;
+
+    &.is-color-a {
+      background: lighten-1($color-cerulean-blue);
+    }
+
+    &.is-color-b {
+      background: lighten-1($color-space-gray);
+    }
+
+    &.is-color-c {
+      background: lighten-1($color-gunmetal-gray);
+    }
+
+    &:hover {
+      &.is-color-a {
+        background: lighten-2($color-cerulean-blue);
+      }
+
+      &.is-color-b {
+        background: lighten-2($color-space-gray);
+      }
+
+      &.is-color-c {
+        background: lighten-2($color-gunmetal-gray);
+      }
+    }
+
+    &:active {
+      &.is-color-a {
+        background: lighten-1($color-cerulean-blue);
+      }
+
+      &.is-color-b {
+        background: lighten-1($color-space-gray);
+      }
+
+      &.is-color-c {
+        background: lighten-1($color-gunmetal-gray);
+      }
+    }
+
+    &:disabled {
+      cursor: not-allowed;
+      background: darken-1($color-platinum-gray);
+    }
+  }
+}

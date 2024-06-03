@@ -1,0 +1,137 @@
+@use "../../scss/index" as *;
+
+.search-page {
+  padding-bottom: $space-7;
+  background-color: $color-pure-white;
+
+  &__search-term-section {
+    background-color: $color-mint-green;
+  }
+
+  &__search-term-section-container {
+    @extend %container;
+
+    padding: $space-4;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  &__search-term-text {
+    @extend %h4-sans;
+
+    color: $color-pure-white;
+    font-weight: $font-weight-bold;
+  }
+
+  &__search-filters-section {
+    margin-bottom: $space-5;
+    background-color: $color-mint-green;
+    padding-bottom: $space-2;
+  }
+
+  &__filters-list {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    row-gap: $space-1;
+    column-gap: $space-1;
+    justify-content: center;
+  }
+
+  &__filters-list-item {
+    display: flex;
+    flex-direction: row;
+  }
+
+  &__filter-button {
+    @extend %body-small-sans;
+
+    appearance: none;
+    border: none;
+    background: $color-pure-white;
+    cursor: pointer;
+    color: $color-gunmetal-gray;
+    font-weight: $font-weight-medium;
+    padding: $space-1 $space-2;
+    border-radius: 50px;
+    text-wrap: nowrap;
+    border: 3px solid transparent;
+
+    &.is-clear-button {
+      background: $color-space-gray;
+      color: $color-pure-white;
+
+      &:hover {
+        background: darken-3($color-space-gray);
+      }
+
+      &:active {
+        background: darken-2($color-space-gray);
+      }
+    }
+
+    &:hover {
+      background: lighten-3($color-mint-green);
+    }
+
+    &:active {
+      background: lighten-2($color-mint-green);
+    }
+
+    &:disabled {
+      cursor: not-allowed;
+      border: 3px dashed darken-1($color-mint-green);
+      background: lighten-3($color-mint-green);
+    }
+  }
+
+  &__search-results-section {
+    @extend %container;
+
+    display: flex;
+    flex-direction: column;
+    row-gap: $space-5;
+  }
+
+  &__no-results-text {
+    @extend %h4-sans;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: $font-weight-semibold;
+  }
+
+  &__no-results-icon {
+    @extend %h2-sans;
+
+    margin-right: $space-2;
+  }
+
+  &__loader-container {
+    display: flex;
+    justify-content: center;
+  }
+
+  &__loader-icon {
+    font-size: 40px;
+    color: $color-gunmetal-gray;
+  }
+
+  &__item-divider-wrapper {
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+  }
+
+  &__item-divider {
+    border-bottom: 3px solid $color-platinum-gray;
+    display: flex;
+    width: 100%;
+    margin: 0 auto;
+    grid-column: 3 / span 8;
+  }
+}

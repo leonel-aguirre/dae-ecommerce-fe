@@ -1,0 +1,60 @@
+$color-pure-white: #ffffff;
+$color-platinum-gray: #dcdcdd;
+$color-french-gray: #c5c3c6;
+$color-space-gray: #46494c;
+$color-gunmetal-gray: #4c5c68;
+$color-eerie-black: #2e3138;
+$color-cerulean-blue: #1985a1;
+// $color-cerulean-blue: #6320ee;
+// $color-cerulean-blue: #8075ff;
+$color-mint-green: #17b890;
+$color-dogwood-rose: #d90368;
+$color-saffron-yellow: #eac435;
+
+@function monochrome-gradient($color: $color-cerulean-blue, $degrees: 90deg) {
+  @return linear-gradient($degrees, $color 0%, lighten-1($color) 100%);
+}
+
+@mixin gradient-text($color: $color-cerulean-blue) {
+  background: -webkit-linear-gradient(left, $color, lighten-2($color));
+
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+$color-adjust-1: 20%;
+$color-adjust-2: 40%;
+$color-adjust-3: 60%;
+
+@function lighten-1($color) {
+  @return scale-color($color, $lightness: $color-adjust-1);
+}
+
+@function lighten-2($color) {
+  @return scale-color($color, $lightness: $color-adjust-2);
+}
+
+@function lighten-3($color) {
+  @return scale-color($color, $lightness: $color-adjust-3);
+}
+
+@function lighten-4($color) {
+  @return scale-color($color, $lightness: $color-adjust-4);
+}
+
+@function darken-1($color) {
+  @return scale-color($color, $lightness: $color-adjust-1 * -1);
+}
+
+@function darken-2($color) {
+  @return scale-color($color, $lightness: $color-adjust-2 * -1);
+}
+
+@function darken-3($color) {
+  @return scale-color($color, $lightness: $color-adjust-3 * -1);
+}
+
+@function darken-4($color) {
+  @return scale-color($color, $lightness: $color-adjust-4 * -1);
+}
