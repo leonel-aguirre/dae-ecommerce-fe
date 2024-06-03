@@ -345,6 +345,29 @@ const fetchUserProductRatings = () => async (dispatch) => {
   }
 }
 
+const rateProduct = (productID, rating) => async () => {
+  try {
+    const { data } = await post("/product/rating", {
+      product_id: productID,
+      rating,
+    })
+
+    if (data?.data !== undefined) {
+      return { success: true }
+    } else {
+      return { success: false }
+    }
+  } catch (error) {
+    console.error(error)
+
+    return {
+      success: false,
+      data: {},
+      message: "Error while trying to purchase items.",
+    }
+  }
+}
+
 const setProductCategories = (productCategories) => async (dispatch) => {
   await dispatch({
     type: SET_PRODUCT_CATEGORIES,
@@ -425,4 +448,5 @@ export const actions = {
   deleteCartItem,
   addProductToCart,
   purchaseItems,
+  rateProduct,
 }

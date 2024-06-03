@@ -1,6 +1,6 @@
 import "./ProductCard.scss"
 
-import React from "react"
+import React, { useState } from "react"
 import PropTypes from "prop-types"
 import {
   faCartShopping,
@@ -20,8 +20,15 @@ import {
   productSelectors,
 } from "../../state/index"
 import ProductRating from "../ProductRating/ProductRating"
+import Modal from "../Modal/Modal"
+import ProductRatingForm from "./ProductRatingForm/ProductRatingForm"
 
-const { deleteUserProduct, addProductToCart, deleteCartItem } = productActions
+const {
+  deleteUserProduct,
+  addProductToCart,
+  deleteCartItem,
+  fetchUserProductRatings,
+} = productActions
 const { selectIsUserAuthenticated } = authSelectors
 const { selectUserProductRatings } = productSelectors
 
@@ -36,6 +43,9 @@ const ProductCard = ({
   const isUserAuthenticated = useSelector(selectIsUserAuthenticated)
   const dispatch = useDispatch()
   const navigate = useNavigate()
+
+  const [isProductRatingModalOpen, setIsProductRatingModalOpen] =
+    useState(false)
 
   const productImageID = product?.productImages?.[0]?.id
   const productTitle = product?.title
@@ -66,6 +76,10 @@ const ProductCard = ({
     if (cartItemID) {
       dispatch(deleteCartItem(cartItemID))
     }
+  }
+
+  const handleRateThisItemButton = () => {
+    setIsProductRatingModalOpen(true)
   }
 
   const renderButtons = () => {
@@ -120,13 +134,13 @@ const ProductCard = ({
                 <p className="product-card__product-rating-label">
                   Your Rating
                 </p>
-                <ProductRating value={productRating?.rating} />
+                <ProductRating value={productRating?.rating} isSmall={true} />
               </div>
             ) : (
               <Button
                 text={"Rate this Item"}
                 icon={faStar}
-                onClick={handleDeleteFromCartButton}
+                onClick={handleRateThisItemButton}
               />
             )}
             <div className="product-card__purchased-date-wrapper">
@@ -148,6 +162,28 @@ const ProductCard = ({
           />
         )
     }
+  }
+
+  const renderModal = () => {
+    if (type !== ProductCard.TYPE_PURCHASED || productRating) {
+      return null
+    }
+
+    return (
+      <Modal
+        isOpen={isProductRatingModalOpen}
+        onClose={() => setIsProductRatingModalOpen(false)}
+      >
+        <ProductRatingForm
+          productID={productID}
+          onSubmit={async () => {
+            setIsProductRatingModalOpen(false)
+            document.body.classList.remove("is-modal-open")
+            await dispatch(fetchUserProductRatings())
+          }}
+        />
+      </Modal>
+    )
   }
 
   return (
@@ -199,6 +235,7 @@ const ProductCard = ({
       <div className="product-card__action-buttons-wrapper">
         {renderButtons()}
       </div>
+      {renderModal()}
     </div>
   )
 }

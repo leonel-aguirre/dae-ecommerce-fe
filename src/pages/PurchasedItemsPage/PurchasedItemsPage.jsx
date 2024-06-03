@@ -58,15 +58,22 @@ const PurchasedItemsPage = () => {
     } else {
       return (
         <section className="purchased-items-page__products-list-section">
-          {purchasedItems.map((purchasedItem) => (
-            <ProductCard
-              key={purchasedItem.id}
-              product={purchasedItem.product}
-              cartItemID={purchasedItem.id}
-              purchaseDate={purchasedItem.purchaseDate}
-              isSmall={true}
-              type={ProductCard.TYPE_PURCHASED}
-            />
+          {purchasedItems.map((purchasedItem, index) => (
+            <>
+              <ProductCard
+                key={purchasedItem.id}
+                product={purchasedItem.product}
+                cartItemID={purchasedItem.id}
+                purchaseDate={purchasedItem.purchaseDate}
+                isSmall={true}
+                type={ProductCard.TYPE_PURCHASED}
+              />
+              {index < purchasedItems.length - 1 && (
+                <div className="purchased-items-page__item-divider-wrapper">
+                  <div className="purchased-items-page__item-divider" />
+                </div>
+              )}
+            </>
           ))}
           {purchasedItems.length === 0 && (
             <p className="purchased-items-page__no-results-text">

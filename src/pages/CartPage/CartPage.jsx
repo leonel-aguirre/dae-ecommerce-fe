@@ -84,14 +84,21 @@ const CartPage = () => {
     } else {
       return (
         <section className="cart-page__products-list-section">
-          {cartItems.map((cartItem) => (
-            <ProductCard
-              key={cartItem.id}
-              product={cartItem.product}
-              cartItemID={cartItem.id}
-              isSmall={true}
-              type={ProductCard.TYPE_CART}
-            />
+          {cartItems.map((cartItem, index) => (
+            <>
+              <ProductCard
+                key={cartItem.id}
+                product={cartItem.product}
+                cartItemID={cartItem.id}
+                isSmall={true}
+                type={ProductCard.TYPE_CART}
+              />
+              {index < cartItems.length - 1 && (
+                <div className="cart-page__item-divider-wrapper">
+                  <div className="cart-page__item-divider" />
+                </div>
+              )}
+            </>
           ))}
           {cartItems.length === 0 && (
             <p className="cart-page__no-results-text">

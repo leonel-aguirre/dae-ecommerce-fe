@@ -57,4 +57,17 @@
     font-size: 40px;
     color: $color-gunmetal-gray;
   }
+
+  &__item-divider-wrapper {
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+  }
+
+  &__item-divider {
+    border-bottom: 3px solid $color-platinum-gray;
+    display: flex;
+    width: 100%;
+    margin: 0 auto;
+    grid-column: 3 / span 8;
+  }
 }

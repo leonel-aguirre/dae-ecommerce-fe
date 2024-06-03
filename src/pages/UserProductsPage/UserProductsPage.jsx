@@ -59,13 +59,20 @@ const UserProductsPage = () => {
     } else {
       return (
         <section className="user-products-page__products-list-section">
-          {userProducts.map((product) => (
-            <ProductCard
-              key={product.id}
-              product={product}
-              isSmall={true}
-              type={ProductCard.TYPE_OWNED}
-            />
+          {userProducts.map((product, index) => (
+            <>
+              <ProductCard
+                key={product.id}
+                product={product}
+                isSmall={true}
+                type={ProductCard.TYPE_OWNED}
+              />
+              {index < userProducts.length - 1 && (
+                <div className="user-products-page__item-divider-wrapper">
+                  <div className="user-products-page__item-divider" />
+                </div>
+              )}
+            </>
           ))}
           {userProducts.length === 0 && (
             <p className="user-products-page__no-results-text">

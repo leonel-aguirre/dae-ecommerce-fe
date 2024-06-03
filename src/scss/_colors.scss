@@ -5,8 +5,11 @@ $color-space-gray: #46494c;
 $color-gunmetal-gray: #4c5c68;
 $color-eerie-black: #2e3138;
 $color-cerulean-blue: #1985a1;
+// $color-cerulean-blue: #6320ee;
+// $color-cerulean-blue: #8075ff;
 $color-mint-green: #17b890;
 $color-dogwood-rose: #d90368;
+$color-saffron-yellow: #eac435;
 
 @function monochrome-gradient($color: $color-cerulean-blue, $degrees: 90deg) {
   @return linear-gradient($degrees, $color 0%, lighten-1($color) 100%);

@@ -1,12 +1,12 @@
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import "./ProductRating.scss"
 
-import PropTypes from "prop-types"
 import React, { useEffect, useState } from "react"
+import PropTypes from "prop-types"
 import { faStar, faStarHalfStroke } from "@fortawesome/free-solid-svg-icons"
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faStar as faStarHollow } from "@fortawesome/free-regular-svg-icons"
 
-const ProductRating = ({ value }) => {
+const ProductRating = ({ value, isSmall = false }) => {
   const [iconList, setIconList] = useState([])
 
   useEffect(() => {
@@ -34,11 +34,29 @@ const ProductRating = ({ value }) => {
       {iconList.map((icon) => {
         switch (icon) {
           case ProductRating.ICON_FULL_STAR:
-            return <FontAwesomeIcon icon={faStar} />
+            return (
+              <FontAwesomeIcon
+                className="product-rating__icon"
+                size={isSmall ? "1x" : "2x"}
+                icon={faStar}
+              />
+            )
           case ProductRating.ICON_HALF_STAR:
-            return <FontAwesomeIcon icon={faStarHalfStroke} />
+            return (
+              <FontAwesomeIcon
+                className="product-rating__icon"
+                size={isSmall ? "1x" : "2x"}
+                icon={faStarHalfStroke}
+              />
+            )
           case ProductRating.ICON_HOLLOW_STAR:
-            return <FontAwesomeIcon icon={faStarHollow} />
+            return (
+              <FontAwesomeIcon
+                className="product-rating__icon"
+                size={isSmall ? "1x" : "2x"}
+                icon={faStarHollow}
+              />
+            )
         }
       })}
     </div>
@@ -47,6 +65,7 @@ const ProductRating = ({ value }) => {
 
 ProductRating.propTypes = {
   value: PropTypes.string.isRequired,
+  isSmall: PropTypes.bool,
 }
 
 ProductRating.ICON_FULL_STAR = "ICON_FULL_STAR"
