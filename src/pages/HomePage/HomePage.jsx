@@ -27,7 +27,7 @@ const HomePage = () => {
       try {
         const { success, data } = await dispatch(fetchFeaturedProduct())
 
-        if (success && data) {
+        if (success && data?.id) {
           setFeaturedProduct(data)
         }
 
