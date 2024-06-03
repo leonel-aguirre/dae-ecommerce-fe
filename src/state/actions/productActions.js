@@ -368,6 +368,29 @@ const rateProduct = (productID, rating) => async () => {
   }
 }
 
+const fetchProductTotalRating = (productID) => async () => {
+  try {
+    const { data } = await get(`/product/total_rating/${productID}`)
+
+    if (data?.data !== undefined) {
+      return {
+        success: true,
+        data: snakeToCamelCaseObjectKeys(data?.data),
+      }
+    } else {
+      return { success: false }
+    }
+  } catch (error) {
+    console.error(error)
+
+    return {
+      success: false,
+      data: {},
+      message: "Error while trying to retrieve product total ratings.",
+    }
+  }
+}
+
 const setProductCategories = (productCategories) => async (dispatch) => {
   await dispatch({
     type: SET_PRODUCT_CATEGORIES,
@@ -438,6 +461,7 @@ export const actions = {
   fetchCartItems,
   fetchPurchasedItems,
   fetchUserProductRatings,
+  fetchProductTotalRating,
   setProductCategories,
   setSearchResults,
   setCartItemsAmount,

@@ -1,6 +1,6 @@
 import "./ProductCard.scss"
 
-import React, { useState } from "react"
+import React, { useEffect, useState } from "react"
 import PropTypes from "prop-types"
 import {
   faCartShopping,
@@ -28,6 +28,7 @@ const {
   addProductToCart,
   deleteCartItem,
   fetchUserProductRatings,
+  fetchProductTotalRating,
 } = productActions
 const { selectIsUserAuthenticated } = authSelectors
 const { selectUserProductRatings } = productSelectors
@@ -46,6 +47,7 @@ const ProductCard = ({
 
   const [isProductRatingModalOpen, setIsProductRatingModalOpen] =
     useState(false)
+  const [totalRating, setTotalRating] = useState(undefined)
 
   const productImageID = product?.productImages?.[0]?.id
   const productTitle = product?.title
@@ -59,6 +61,22 @@ const ProductCard = ({
     (productRating) => productRating.productId === productID,
   )
   const shouldShowPreviousPrice = productCurrentPrice < productPreviousPrice
+
+  useEffect(() => {
+    const triggerFetch = async () => {
+      const { success, data } = await dispatch(
+        fetchProductTotalRating(productID),
+      )
+
+      if (success && data?.hasTotalRating) {
+        setTotalRating(data.totalRating)
+      }
+    }
+
+    if (type === ProductCard.TYPE_DEFAULT) {
+      triggerFetch()
+    }
+  }, [type])
 
   const handleDeleteButton = () => {
     dispatch(deleteUserProduct(productID))
@@ -154,12 +172,24 @@ const ProductCard = ({
       case ProductCard.TYPE_DEFAULT:
       default:
         return (
-          <Button
-            text={"Add to Cart"}
-            icon={faCartShopping}
-            onClick={handleAddToCartButton}
-            isDisabled={!isUserAuthenticated}
-          />
+          <>
+            {totalRating !== undefined && (
+              <div className="product-card__product-rating-wrapper">
+                <p className="product-card__product-rating-label">
+                  Product Rating
+                </p>
+                <ProductRating value={totalRating} isSmall={true} />
+              </div>
+            )}
+            <div className="product-card__button-wrapper">
+              <Button
+                text={"Add to Cart"}
+                icon={faCartShopping}
+                onClick={handleAddToCartButton}
+                isDisabled={!isUserAuthenticated}
+              />
+            </div>
+          </>
         )
     }
   }

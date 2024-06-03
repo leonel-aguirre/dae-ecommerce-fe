@@ -152,4 +152,11 @@
     color: $color-dogwood-rose;
     font-weight: $font-weight-bold;
   }
+
+  &__button-wrapper {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+  }
 }
