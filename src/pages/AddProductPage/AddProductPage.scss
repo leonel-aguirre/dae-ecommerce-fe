@@ -6,9 +6,12 @@
   $default-text-color: $color-eerie-black;
   $create-account-anchor-text-color: $color-cerulean-blue;
 
+  background-color: $color-pure-white;
+  padding: $space-6 0;
+
   &__form-container {
     max-width: 600px;
-    margin: $space-6 auto;
+    margin: 0 auto;
     padding: $space-5;
     border: 2px solid $form-container-border-color;
     border-radius: 10px;

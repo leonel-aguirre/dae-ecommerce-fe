@@ -27,7 +27,7 @@ const HomePage = () => {
       try {
         const { success, data } = await dispatch(fetchFeaturedProduct())
 
-        if (success && data) {
+        if (success && data?.id) {
           setFeaturedProduct(data)
         }
 
@@ -110,7 +110,11 @@ const HomePage = () => {
     }
   }
 
-  return <div className="home-page">{renderContent()}</div>
+  return (
+    <div className="home-page">
+      <div className="home-page__container">{renderContent()}</div>
+    </div>
+  )
 }
 
 export default HomePage

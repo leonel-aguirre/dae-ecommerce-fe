@@ -9,6 +9,7 @@ import {
   SET_PRODUCT_CATEGORIES,
   SET_SEARCH_RESULTS,
   SET_USER_PRODUCTS,
+  SET_USER_PRODUCT_RATINGS,
 } from "../reducers/productReducer"
 
 const fetchProductCategories = () => async (dispatch) => {
@@ -141,7 +142,7 @@ const fetchUserProducts = () => async (dispatch) => {
   }
 }
 
-const updateProductByID = (productID, updatedProduct) => async (dispatch) => {
+const updateProductByID = (productID, updatedProduct) => async () => {
   try {
     const { title, description, currentPrice, previousPrice, tags, imageFile } =
       updatedProduct
@@ -273,6 +274,123 @@ const deleteCartItem = (cartItemID) => async (dispatch) => {
   }
 }
 
+const fetchPurchasedItems = () => async () => {
+  try {
+    const { data } = await get("/cart/purchased-items")
+
+    if (data?.data !== undefined) {
+      return {
+        success: true,
+        data: data?.data.map((purchasedItem) =>
+          snakeToCamelCaseObjectKeys(purchasedItem),
+        ),
+      }
+    } else {
+      return { success: false, data: {} }
+    }
+  } catch (error) {
+    console.error(error)
+
+    return {
+      success: false,
+      data: {},
+      message: "Error while trying to retrieve purchased items.",
+    }
+  }
+}
+
+const purchaseItems = (cartItemsIDs) => async () => {
+  try {
+    const { data } = await post("/cart/purchase-items", {
+      cart_item_ids: cartItemsIDs,
+    })
+
+    if (data?.data !== undefined) {
+      return { success: true }
+    } else {
+      return { success: false }
+    }
+  } catch (error) {
+    console.error(error)
+
+    return {
+      success: false,
+      data: {},
+      message: "Error while trying to purchase items.",
+    }
+  }
+}
+
+const fetchUserProductRatings = () => async (dispatch) => {
+  try {
+    const { data } = await get("/product/user_ratings")
+
+    if (data?.data !== undefined) {
+      dispatch(setUserProductRatings(data?.data))
+
+      return {
+        success: true,
+      }
+    } else {
+      return { success: false }
+    }
+  } catch (error) {
+    console.error(error)
+
+    return {
+      success: false,
+      data: {},
+      message: "Error while trying to retrieve user product ratings.",
+    }
+  }
+}
+
+const rateProduct = (productID, rating) => async () => {
+  try {
+    const { data } = await post("/product/rating", {
+      product_id: productID,
+      rating,
+    })
+
+    if (data?.data !== undefined) {
+      return { success: true }
+    } else {
+      return { success: false }
+    }
+  } catch (error) {
+    console.error(error)
+
+    return {
+      success: false,
+      data: {},
+      message: "Error while trying to purchase items.",
+    }
+  }
+}
+
+const fetchProductTotalRating = (productID) => async () => {
+  try {
+    const { data } = await get(`/product/total_rating/${productID}`)
+
+    if (data?.data !== undefined) {
+      return {
+        success: true,
+        data: snakeToCamelCaseObjectKeys(data?.data),
+      }
+    } else {
+      return { success: false }
+    }
+  } catch (error) {
+    console.error(error)
+
+    return {
+      success: false,
+      data: {},
+      message: "Error while trying to retrieve product total ratings.",
+    }
+  }
+}
+
 const setProductCategories = (productCategories) => async (dispatch) => {
   await dispatch({
     type: SET_PRODUCT_CATEGORIES,
@@ -326,6 +444,13 @@ const setCartItems = (cartItems) => async (dispatch) => {
   })
 }
 
+const setUserProductRatings = (userProductRatings) => async (dispatch) => {
+  await dispatch({
+    type: SET_USER_PRODUCT_RATINGS,
+    payload: { userProductRatings },
+  })
+}
+
 export const actions = {
   fetchProductCategories,
   fetchFeaturedProduct,
@@ -334,12 +459,18 @@ export const actions = {
   fetchProductByID,
   fetchCartItemsAmount,
   fetchCartItems,
+  fetchPurchasedItems,
+  fetchUserProductRatings,
+  fetchProductTotalRating,
   setProductCategories,
   setSearchResults,
+  setCartItemsAmount,
   createProduct,
   clearSearchResults,
   updateProductByID,
   deleteUserProduct,
   deleteCartItem,
   addProductToCart,
+  purchaseItems,
+  rateProduct,
 }

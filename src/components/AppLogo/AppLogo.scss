@@ -26,6 +26,10 @@
     &.is-large {
       @extend %h3-sans;
     }
+
+    &.is-white {
+      color: $color-space-gray;
+    }
   }
 
   &__app-logo-icon {
@@ -36,6 +40,10 @@
       -moz-animation: fa-shake 2s infinite linear;
       -o-animation: fa-shake 2s infinite linear;
       animation: fa-shake 2s infinite linear;
+    }
+
+    &.is-white {
+      color: $color-space-gray;
     }
   }
 }

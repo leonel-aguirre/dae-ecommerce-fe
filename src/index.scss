@@ -6,3 +6,11 @@
   margin: 0;
   box-sizing: border-box;
 }
+
+body {
+  background-color: $color-platinum-gray;
+
+  &.is-modal-open {
+    overflow: hidden;
+  }
+}

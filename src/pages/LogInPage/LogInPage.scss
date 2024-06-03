@@ -6,10 +6,13 @@
   $default-text-color: $color-eerie-black;
   $create-account-anchor-text-color: $color-cerulean-blue;
 
+  background-color: $color-pure-white;
+  padding-top: $space-4;
+  height: 100vh;
+
   &__header {
     display: flex;
     justify-content: center;
-    margin-top: $space-4;
   }
 
   &__form-container {

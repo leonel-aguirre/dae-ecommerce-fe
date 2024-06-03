@@ -18,7 +18,7 @@ import {
 import { URL_LOG_IN_PAGE } from "../../constants"
 import Button from "../../components/Button/Button"
 
-const { fetchCartItems } = productActions
+const { fetchCartItems, purchaseItems, setCartItemsAmount } = productActions
 const { selectIsUserAuthenticated } = authSelectors
 const { selectCartItems, selectCartItemsAmount } = productSelectors
 
@@ -30,6 +30,27 @@ const CartPage = () => {
   const navigate = useNavigate()
 
   const [isLoading, setIsLoading] = useState(false)
+
+  const handlePurchasedItemsButton = () => {
+    navigate("/purchased-items")
+  }
+
+  const handleProceedToCheckoutButton = async () => {
+    const cartItemsIDs = cartItems.map(({ id }) => id)
+
+    setIsLoading(true)
+
+    try {
+      const { success } = await dispatch(purchaseItems(cartItemsIDs))
+
+      if (success) {
+        dispatch(setCartItemsAmount(0))
+        navigate("/purchased-items")
+      }
+    } finally {
+      setIsLoading(false)
+    }
+  }
 
   useEffect(() => {
     const triggerFetch = async () => {
@@ -63,14 +84,21 @@ const CartPage = () => {
     } else {
       return (
         <section className="cart-page__products-list-section">
-          {cartItems.map((cartItem) => (
-            <ProductCard
-              key={cartItem.id}
-              product={cartItem.product}
-              cartItemID={cartItem.id}
-              isSmall={true}
-              type={ProductCard.TYPE_CART}
-            />
+          {cartItems.map((cartItem, index) => (
+            <>
+              <ProductCard
+                key={cartItem.id}
+                product={cartItem.product}
+                cartItemID={cartItem.id}
+                isSmall={true}
+                type={ProductCard.TYPE_CART}
+              />
+              {index < cartItems.length - 1 && (
+                <div className="cart-page__item-divider-wrapper">
+                  <div className="cart-page__item-divider" />
+                </div>
+              )}
+            </>
           ))}
           {cartItems.length === 0 && (
             <p className="cart-page__no-results-text">
@@ -92,6 +120,17 @@ const CartPage = () => {
           </p>
         </div>
       </section>
+      <section className="cart-page__actions-section">
+        <div className="cart-page__actions-section-container">
+          <div className="cart-page__buttons-wrapper">
+            <Button
+              text={"Purchased Items"}
+              icon={faMoneyBillWave}
+              onClick={handlePurchasedItemsButton}
+            />
+          </div>
+        </div>
+      </section>
       {renderResults()}
       {cartItems.length > 0 && (
         <section className="cart-page__order-total-section">
@@ -107,7 +146,12 @@ const CartPage = () => {
                 )
                 .toFixed(2)}
             </p>
-            <Button text={"Proceed to Checkout"} icon={faMoneyBillWave} />
+            <Button
+              text={"Proceed to Checkout"}
+              icon={faMoneyBillWave}
+              isLoading={isLoading}
+              onClick={handleProceedToCheckoutButton}
+            />
           </div>
         </section>
       )}

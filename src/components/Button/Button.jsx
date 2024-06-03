@@ -15,7 +15,10 @@ const Button = ({
   return (
     <button className="button" disabled={isDisabled || isLoading} {...rest}>
       {isLoading ? (
-        <FontAwesomeIcon icon={faCircleNotch} spin />
+        <>
+          <FontAwesomeIcon icon={faCircleNotch} spin className="button__icon" />{" "}
+          {text}
+        </>
       ) : icon ? (
         <>
           <FontAwesomeIcon icon={icon} className="button__icon" /> {text}

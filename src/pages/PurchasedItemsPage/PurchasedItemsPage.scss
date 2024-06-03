@@ -1,6 +1,6 @@
 @use "../../scss/index" as *;
 
-.cart-page {
+.purchased-items-page {
   padding-bottom: $space-7;
   background-color: $color-pure-white;
 
@@ -22,25 +22,6 @@
 
     color: $color-pure-white;
     font-weight: $font-weight-bold;
-  }
-
-  &__actions-section {
-    background-color: $color-platinum-gray;
-  }
-
-  &__actions-section-container {
-    @extend %container;
-
-    padding: $space-1 0;
-    display: grid;
-    grid-template-columns: repeat(12, 1fr);
-  }
-
-  &__buttons-wrapper {
-    display: flex;
-    justify-content: flex-end;
-    align-items: center;
-    grid-column: 2 / span 10;
   }
 
   &__products-list-section {
@@ -75,38 +56,6 @@
   &__loader-icon {
     font-size: 40px;
     color: $color-gunmetal-gray;
-  }
-
-  &__order-total-section {
-    @extend %container;
-
-    display: grid;
-    grid-template-columns: repeat(12, 1fr);
-    grid-template-areas: ". . . . . . . . total total total .";
-    margin-top: $space-3;
-  }
-
-  &__order-total-content {
-    grid-area: total;
-
-    display: flex;
-    flex-direction: column;
-    align-items: flex-end;
-  }
-
-  &__order-total-text {
-    @extend %h4-sans;
-
-    font-weight: $font-weight-bold;
-  }
-
-  &__order-total-value {
-    @extend %h4-sans;
-
-    font-weight: $font-weight-bold;
-    color: darken-1($color-mint-green);
-
-    margin-bottom: $space-1;
   }
 
   &__item-divider-wrapper {

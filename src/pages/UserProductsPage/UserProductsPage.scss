@@ -2,6 +2,7 @@
 
 .user-products-page {
   padding-bottom: $space-7;
+  background-color: $color-pure-white;
 
   &__header-section {
     background-color: $color-mint-green;
@@ -21,6 +22,25 @@
 
     color: $color-pure-white;
     font-weight: $font-weight-bold;
+  }
+
+  &__actions-section {
+    background-color: $color-platinum-gray;
+  }
+
+  &__actions-section-container {
+    @extend %container;
+
+    padding: $space-1 0;
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+  }
+
+  &__buttons-wrapper {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    grid-column: 2 / span 10;
   }
 
   &__products-list-section {
@@ -55,5 +75,18 @@
   &__loader-icon {
     font-size: 40px;
     color: $color-gunmetal-gray;
+  }
+
+  &__item-divider-wrapper {
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+  }
+
+  &__item-divider {
+    border-bottom: 3px solid $color-platinum-gray;
+    display: flex;
+    width: 100%;
+    margin: 0 auto;
+    grid-column: 3 / span 8;
   }
 }

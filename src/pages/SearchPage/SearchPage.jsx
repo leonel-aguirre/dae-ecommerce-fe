@@ -97,8 +97,19 @@ const SearchPage = () => {
             </ul>
           </section>
           <section className="search-page__search-results-section">
-            {searchResults.map((product) => (
-              <ProductCard key={product.id} product={product} isSmall={true} />
+            {searchResults.map((product, index) => (
+              <>
+                <ProductCard
+                  key={product.id}
+                  product={product}
+                  isSmall={true}
+                />
+                {index < searchResults.length - 1 && (
+                  <div className="search-page__item-divider-wrapper">
+                    <div className="search-page__item-divider" />
+                  </div>
+                )}
+              </>
             ))}
             {searchResults.length === 0 && (
               <p className="search-page__no-results-text">
